@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VYOM VOID — Full Brand Identity Guide</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --void-black: #0A0A0F;
+      --deep-space: #1A1A2E;
+      --cosmic-navy: #16213E;
+      --nebula-purple: #7B2FBE;
+      --vyom-cyan: #00D4FF;
+      --stardust: #E8E8F0;
+      --supernova-red: #FF3864;
+      --muted: #888899;
+      --border: rgba(232, 232, 240, 0.08);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--void-black);
+      color: var(--stardust);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 60px 40px;
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: 72px;
+      font-weight: 800;
+      letter-spacing: -3px;
+      line-height: 0.9;
+      color: var(--stardust);
+    }
+
+    h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--vyom-cyan);
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--stardust);
+      margin-bottom: 12px;
+    }
+
+    h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #B0B0C0;
+      line-height: 1.8;
+      margin-bottom: 12px;
+    }
+
+    section {
+      padding: 60px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    section:last-child {
+      border-bottom: none;
+    }
+
+    .hero {
+      padding: 100px 0 80px;
+      text-align: center;
+    }
+
+    .hero h1 span {
+      color: var(--nebula-purple);
+    }
+
+    .hero-tagline {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 20px;
+    }
+
+    .divider-line {
+      width: 60px;
+      height: 2px;
+      background: var(--nebula-purple);
+      margin: 30px auto;
+    }
+
+    .card {
+      background: var(--deep-space);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 16px;
+    }
+
+    .card-dark {
+      background: #0D0D18;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 16px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .swatch {
+      border-radius: 10px;
+      padding: 20px 14px 14px;
+    }
+
+    .swatch-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      letter-spacing: 1px;
+      font-weight: 500;
+      margin-top: 8px;
+    }
+
+    .swatch-hex {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    .swatch-role {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin: 4px 4px 4px 0;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .tag-accent {
+      border-color: var(--nebula-purple);
+      color: var(--nebula-purple);
+    }
+
+    .tag-cyan {
+      border-color: var(--vyom-cyan);
+      color: var(--vyom-cyan);
+    }
+
+    blockquote {
+      border-left: 2px solid var(--nebula-purple);
+      padding-left: 20px;
+      margin: 20px 0;
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      color: var(--stardust);
+      font-style: italic;
+    }
+
+    .logo-preview {
+      background: #111120;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 40px 20px;
+      min-height: 160px;
+    }
+
+    .logo-wordmark {
+      font-family: 'Syne', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: var(--stardust);
+    }
+
+    .logo-sub {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 9px;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th {
+      text-align: left;
+      padding: 10px 16px;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      color: #B0B0C0;
+      vertical-align: top;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .collection-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--nebula-purple);
+      letter-spacing: 2px;
+    }
+
+    .collection-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--stardust);
+      margin: 4px 0;
+    }
+
+    .collection-meaning {
+      font-size: 12px;
+      color: var(--vyom-cyan);
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .website-section {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .website-section:last-child {
+      border-bottom: none;
+    }
+
+    .ws-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--border);
+      min-width: 50px;
+    }
+
+    .ws-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--stardust);
+      margin-bottom: 6px;
+    }
+
+    .ws-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .highlight {
+      color: var(--vyom-cyan);
+    }
+
+    .highlight-purple {
+      color: var(--nebula-purple);
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(123, 47, 190, 0.2);
+      color: var(--nebula-purple);
+      border: 1px solid rgba(123, 47, 190, 0.3);
+      font-family: 'Space Grotesk', sans-serif;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .font-preview {
+      padding: 16px 20px;
+      background: #0D0D18;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .font-label {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    ul li {
+      color: #B0B0C0;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    .print-note {
+      background: rgba(0, 212, 255, 0.05);
+      border: 1px solid rgba(0, 212, 255, 0.15);
+      border-radius: 8px;
+      padding: 16px 20px;
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 20px;
+    }
+
+    .page-break {
+      page-break-before: always;
+    }
+
+    @media print {
+      body {
+        background: white;
+        color: #111;
+      }
+
+      .card,
+      .card-dark {
+        background: #f5f5f5;
+        border-color: #ddd;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="badge">Brand Identity Document v1.0</div>
+      <h1>VYOM<br><span>VOID</span></h1>
+      <div class="divider-line"></div>
+      <p class="hero-tagline">Where the sky meets nothingness</p>
+      <div style="margin-top: 30px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+        <span class="tag tag-accent">Indian Gen Z</span>
+        <span class="tag tag-cyan">Print on demand</span>
+        <span class="tag tag-accent">Dark theme</span>
+        <span class="tag tag-cyan">Sanskrit roots</span>
+        <span class="tag">Streetwear</span>
+        <span class="tag">Cosmic / space</span>
+      </div>
+      <div
+        style="margin-top: 40px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 480px; margin-left: auto; margin-right: auto;">
+        <div style="text-align:center;">
+          <div style="font-family:'Syne',sans-serif; font-size: 28px; font-weight: 800; color: var(--nebula-purple);">
+            vyomvoid.com</div>
+          <div style="font-size: 11px; color: var(--muted);">.com available</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-family:'Syne',sans-serif; font-size: 28px; font-weight: 800; color: var(--vyom-cyan);">
+            vyomvoid.in</div>
+          <div style="font-size: 11px; color: var(--muted);">.in available</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-family:'Syne',sans-serif; font-size: 28px; font-weight: 800; color: var(--stardust);">
+            @vyomvoid</div>
+          <div style="font-size: 11px; color: var(--muted);">Instagram handle</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BRAND STORY -->
+    <section>
+      <h2>01 — Brand story</h2>
+      <h3>The origin of VYOM VOID</h3>
+      <p><strong style="color:var(--stardust);">Vyom</strong> (व्योम) is a Sanskrit word meaning <em>sky</em> or
+        <em>space</em> — infinite, ancient, and sacred in Indian culture. <strong
+          style="color:var(--stardust);">Void</strong> is the modern English expression of nothingness — dark,
+        boundless, and alive with tension.</p>
+      <p>VYOM VOID is the collision of these two worlds. It is a brand born from the intersection of ancient Indian
+        cosmic philosophy and the raw, restless energy of modern Gen Z culture. Every piece of clothing we make is a
+        portal — between the seen and the unseen, between earth and infinity.</p>
+      <p>We are not just a t-shirt brand. We are a frequency. A signal from the void.</p>
+      <blockquote>"The universe was born from shunya — nothingness. So were we."</blockquote>
+      <div class="grid-2" style="margin-top: 24px;">
+        <div class="card">
+          <h4>Mission</h4>
+          <p>To create wearable art for the generation that exists between worlds — digitally native, culturally rooted,
+            and unafraid of the dark.</p>
+        </div>
+        <div class="card">
+          <h4>Vision</h4>
+          <p>To become India's most iconic dark-aesthetic streetwear brand — recognized globally as the brand that gave
+            the cosmos a voice in fashion.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TARGET AUDIENCE -->
+    <section>
+      <h2>02 — Target audience</h2>
+      <h3>Who wears VYOM VOID</h3>
+      <div class="grid-3">
+        <div class="card">
+          <h4>Age</h4>
+          <p
+            style="font-size: 28px; font-family: 'Syne', sans-serif; font-weight: 800; color: var(--nebula-purple); margin: 0;">
+            16 — 26</p>
+          <p style="font-size: 13px; margin-top: 6px;">Indian Gen Z and young millennials</p>
+        </div>
+        <div class="card">
+          <h4>Gender</h4>
+          <p style="font-size: 14px;">Unisex / gender-neutral. Oversized fits appeal to all.</p>
+        </div>
+        <div class="card">
+          <h4>Geography</h4>
+          <p style="font-size: 14px;">Tier 1 + Tier 2 India first. Global Indian diaspora second.</p>
+        </div>
+      </div>
+      <div class="card" style="margin-top: 16px;">
+        <h4>Psychographics</h4>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px;">
+          <span class="tag tag-accent">Dark aesthetic lovers</span>
+          <span class="tag tag-accent">Anime culture</span>
+          <span class="tag tag-accent">Space + cosmos fans</span>
+          <span class="tag">Sanskrit / mythology interest</span>
+          <span class="tag">Instagram aesthetics</span>
+          <span class="tag">Limited drop culture</span>
+          <span class="tag">Anti-fast-fashion</span>
+          <span class="tag">Music festival crowd</span>
+          <span class="tag">Gamers + streamers</span>
+          <span class="tag">College students</span>
+        </div>
+      </div>
+      <div class="card">
+        <h4>Customer persona</h4>
+        <p><strong style="color:var(--stardust);">Arjun, 19, Pune.</strong> He's a design student who listens to lo-fi
+          hip-hop and watches anime at 2am. His wardrobe is 80% black. He discovers brands through Instagram Reels and
+          Reddit. He buys limited drops to feel exclusive, not mass-market. He respects Indian culture but hates
+          clichés. He wants something that feels like it was made for him — dark, cosmic, meaningful.</p>
+      </div>
+    </section>
+
+    <!-- BRAND PERSONALITY -->
+    <section>
+      <h2>03 — Brand personality & voice</h2>
+      <div class="grid-2">
+        <div>
+          <h3>Personality</h3>
+          <div class="card">
+            <table>
+              <tr>
+                <td style="color: var(--vyom-cyan); width: 40%;">Tone</td>
+                <td>Dark, poetic, confident, slightly mysterious</td>
+              </tr>
+              <tr>
+                <td style="color: var(--vyom-cyan);">Archetype</td>
+                <td>The Outlaw meets The Sage</td>
+              </tr>
+              <tr>
+                <td style="color: var(--vyom-cyan);">Energy</td>
+                <td>Quiet intensity — not aggressive, but unflinching</td>
+              </tr>
+              <tr>
+                <td style="color: var(--vyom-cyan);">Vibe</td>
+                <td>Like the universe at 3am — vast, dark, beautiful</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div>
+          <h3>Voice examples</h3>
+          <div class="card">
+            <p style="font-size: 13px; margin-bottom: 8px;"><span style="color:var(--muted);">Caption
+                style:</span><br>"Born in the gap between stars and silence. Drop 002 — NAKSHATRA."</p>
+            <p style="font-size: 13px; margin-bottom: 8px;"><span style="color:var(--muted);">Product
+                description:</span><br>"You are made of the same matter as everything that has ever burned out and
+              disappeared. Wear it."</p>
+            <p style="font-size: 13px; margin-bottom: 0;"><span style="color:var(--muted);">CTA text:</span><br>"Enter
+              the void →" / "Claim your frequency" / "Drop into the cosmos"</p>
+          </div>
+        </div>
+      </div>
+      <div class="grid-2" style="margin-top: 16px;">
+        <div class="card">
+          <h4>We are</h4>
+          <ul>
+            <li>Poetic and dark</li>
+            <li>Culturally proud (Indian roots)</li>
+            <li>Exclusive and drop-driven</li>
+            <li>Minimalist in copy, bold in design</li>
+            <li>Cosmic and philosophical</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>We are NOT</h4>
+          <ul>
+            <li>Loud or aggressive</li>
+            <li>Preachy about Indian culture</li>
+            <li>Generic "galaxy print" brands</li>
+            <li>Overly discounted / sale-heavy</li>
+            <li>Following trends blindly</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- COLOR PALETTE -->
+    <section>
+      <h2>04 — Color palette</h2>
+      <h3>The void spectrum</h3>
+      <div
+        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 12px; margin-bottom: 24px;">
+        <div class="swatch" style="background:#0A0A0F;">
+          <div class="swatch-name" style="color:#E8E8F0;">Void black</div>
+          <div class="swatch-hex" style="color:#888;">#0A0A0F</div>
+          <div class="swatch-role" style="color:#555;">Primary bg</div>
+        </div>
+        <div class="swatch" style="background:#1A1A2E;">
+          <div class="swatch-name" style="color:#E8E8F0;">Deep space</div>
+          <div class="swatch-hex" style="color:#888;">#1A1A2E</div>
+          <div class="swatch-role" style="color:#555;">Card bg</div>
+        </div>
+        <div class="swatch" style="background:#16213E;">
+          <div class="swatch-name" style="color:#E8E8F0;">Cosmic navy</div>
+          <div class="swatch-hex" style="color:#888;">#16213E</div>
+          <div class="swatch-role" style="color:#555;">Section bg</div>
+        </div>
+        <div class="swatch" style="background:#7B2FBE;">
+          <div class="swatch-name" style="color:#F0E0FF;">Nebula purple</div>
+          <div class="swatch-hex" style="color:#ddc;">#7B2FBE</div>
+          <div class="swatch-role" style="color:#ddc;">Brand accent</div>
+        </div>
+        <div class="swatch" style="background:#00D4FF;">
+          <div class="swatch-name" style="color:#001F33;">Vyom cyan</div>
+          <div class="swatch-hex" style="color:#003;">#00D4FF</div>
+          <div class="swatch-role" style="color:#004;">Links / glow</div>
+        </div>
+        <div class="swatch" style="background:#E8E8F0;">
+          <div class="swatch-name" style="color:#1A1A2E;">Stardust</div>
+          <div class="swatch-hex" style="color:#555;">#E8E8F0</div>
+          <div class="swatch-role" style="color:#777;">Primary text</div>
+        </div>
+        <div class="swatch" style="background:#FF3864;">
+          <div class="swatch-name" style="color:#fff;">Supernova</div>
+          <div class="swatch-hex" style="color:#ffd;">#FF3864</div>
+          <div class="swatch-role" style="color:#ffd;">Alert / sale</div>
+        </div>
+      </div>
+      <div class="card">
+        <h4>Color usage rules</h4>
+        <table>
+          <tr>
+            <th>Element</th>
+            <th>Color</th>
+            <th>Hex</th>
+          </tr>
+          <tr>
+            <td>Website background</td>
+            <td>Void black</td>
+            <td style="font-family:monospace; color: var(--vyom-cyan);">#0A0A0F</td>
+          </tr>
+          <tr>
+            <td>Card / panel backgrounds</td>
+            <td>Deep space</td>
+            <td style="font-family:monospace; color: var(--vyom-cyan);">#1A1A2E</td>
+          </tr>
+          <tr>
+            <td>Primary headings</td>
+            <td>Stardust</td>
+            <td style="font-family:monospace; color: var(--vyom-cyan);">#E8E8F0</td>
+          </tr>
+          <tr>
+            <td>Body text</td>
+            <td>Muted stardust</td>
+            <td style="font-family:monospace; color: var(--vyom-cyan);">#B0B0C0</td>
+          </tr>
+          <tr>
+            <td>Brand accent / CTA buttons</td>
+            <td>Nebula purple</td>
+            <td style="font-family:monospace; color: var(--vyom-cyan);">#7B2FBE</td>
+          </tr>
+          <tr>
+            <td>Links / secondary accent</td>
+            <td>Vyom cyan</td>
+            <td style="font-family:monospace; color: var(--vyom-cyan);">#00D4FF</td>
+          </tr>
+          <tr>
+            <td>Sale tags / urgency</td>
+            <td>Supernova red</td>
+            <td style="font-family:monospace; color: var(--vyom-cyan);">#FF3864</td>
+          </tr>
+          <tr>
+            <td>T-shirt base color</td>
+            <td>Black / Charcoal</td>
+            <td style="font-family:monospace; color: var(--vyom-cyan);">#0D0D0D / #1C1C1C</td>
+          </tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- TYPOGRAPHY -->
+    <section>
+      <h2>05 — Typography system</h2>
+      <h3>Font stack</h3>
+      <div class="font-preview">
+        <div
+          style="font-family: 'Syne', sans-serif; font-size: 48px; font-weight: 800; color: var(--stardust); letter-spacing: -2px; line-height: 1;">
+          VYOM VOID</div>
+        <div class="font-label">Display / Logo — Syne 800 · Use for: brand name, hero text, drop titles, large numerals
+        </div>
+      </div>
+      <div class="font-preview">
+        <div
+          style="font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 500; color: var(--stardust);">
+          Enter the void. Wear the cosmos.</div>
+        <div class="font-label">Heading — Space Grotesk 500 · Use for: section headings, product names, nav items</div>
+      </div>
+      <div class="font-preview">
+        <div style="font-family: 'DM Sans', sans-serif; font-size: 15px; color: #B0B0C0; line-height: 1.8;">Vyom Void is
+          not just a brand. It is a frequency born from the Sanskrit cosmos, forged in dark space, and worn by those who
+          feel at home in the dark.</div>
+        <div class="font-label">Body — DM Sans 400 · Use for: product descriptions, about page, blog</div>
+      </div>
+      <div class="font-preview">
+        <div
+          style="font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 4px; text-transform: uppercase; color: var(--muted);">
+          WHERE SKY MEETS NOTHINGNESS · DROP 001</div>
+        <div class="font-label">Label / caption — Space Grotesk 500, uppercase, tracked · Use for: section labels,
+          product tags, drop numbering</div>
+      </div>
+      <div class="print-note">
+        <strong style="color: var(--vyom-cyan);">Google Fonts URLs:</strong><br>
+        Syne: https://fonts.google.com/specimen/Syne<br>
+        Space Grotesk: https://fonts.google.com/specimen/Space+Grotesk<br>
+        DM Sans: https://fonts.google.com/specimen/DM+Sans<br><br>
+        <strong style="color: var(--vyom-cyan);">Fallback alternative:</strong> Bebas Neue (display) + Inter (body) for
+        print/offline use.
+      </div>
+    </section>
+
+    <!-- LOGO -->
+    <section>
+      <h2>06 — Logo system</h2>
+      <h3>Three logo variants</h3>
+      <div class="grid-3">
+        <div>
+          <div class="logo-preview">
+            <div class="logo-wordmark">VYOM VOID</div>
+            <div class="logo-sub">Dark fabric. Infinite cosmos.</div>
+          </div>
+          <h4 style="margin-top: 12px;">Variant A — Wordmark</h4>
+          <p style="font-size: 13px;">Full name in Syne 800. Used on website header, packaging, and large formats.
+            Always on dark backgrounds.</p>
+        </div>
+        <div>
+          <div class="logo-preview">
+            <svg width="80" height="80" viewBox="0 0 80 80">
+              <circle cx="40" cy="40" r="36" fill="none" stroke="#7B2FBE" stroke-width="1" />
+              <circle cx="40" cy="40" r="22" fill="none" stroke="rgba(123,47,190,0.4)" stroke-width="0.5"
+                stroke-dasharray="4,4" />
+              <circle cx="40" cy="40" r="6" fill="#7B2FBE" />
+              <circle cx="40" cy="16" r="3" fill="#00D4FF" />
+              <line x1="40" y1="4" x2="40" y2="76" stroke="rgba(232,232,240,0.1)" stroke-width="0.5" />
+              <line x1="4" y1="40" x2="76" y2="40" stroke="rgba(232,232,240,0.1)" stroke-width="0.5" />
+            </svg>
+            <div class="logo-sub" style="margin-top: 10px;">VV</div>
+          </div>
+          <h4 style="margin-top: 12px;">Variant B — Orbital mark</h4>
+          <p style="font-size: 13px;">Abstract orbit symbol. Used as favicon, app icon, embroidery patch, and social
+            media avatar.</p>
+        </div>
+        <div>
+          <div class="logo-preview">
+            <div style="display: flex; flex-direction: column; align-items: center;">
+              <div
+                style="font-family: 'Syne', sans-serif; font-size: 42px; font-weight: 800; color: var(--stardust); line-height: 1; letter-spacing: -2px;">
+                VV</div>
+              <div style="width: 40px; height: 1px; background: var(--nebula-purple); margin: 6px 0;"></div>
+              <div
+                style="font-family: 'Space Grotesk', sans-serif; font-size: 8px; letter-spacing: 5px; text-transform: uppercase; color: var(--muted);">
+                VYOM VOID</div>
+            </div>
+          </div>
+          <h4 style="margin-top: 12px;">Variant C — Stacked monogram</h4>
+          <p style="font-size: 13px;">Compact VV monogram with ruled divider. Used on t-shirt chest prints, labels, hang
+            tags, and small formats.</p>
+        </div>
+      </div>
+      <div class="card" style="margin-top: 24px;">
+        <h4>Logo usage rules</h4>
+        <table>
+          <tr>
+            <th>Rule</th>
+            <th>Details</th>
+          </tr>
+          <tr>
+            <td>Always on dark</td>
+            <td>Logo must always sit on black (#0A0A0F) or very dark backgrounds. Never on white or light surfaces.</td>
+          </tr>
+          <tr>
+            <td>Colors allowed</td>
+            <td>White/stardust version, Purple version (#7B2FBE), or Cyan version (#00D4FF). No rainbow or multi-color.
+            </td>
+          </tr>
+          <tr>
+            <td>Clear space</td>
+            <td>Minimum clear space = height of the "V" character around all sides of the logo.</td>
+          </tr>
+          <tr>
+            <td>No distortion</td>
+            <td>Never stretch, skew, rotate, or add drop shadows to the logo.</td>
+          </tr>
+          <tr>
+            <td>Minimum size</td>
+            <td>Wordmark: minimum 80px wide. Orbital mark: minimum 24px. Monogram: minimum 32px tall.</td>
+          </tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- COLLECTIONS -->
+    <section>
+      <h2>07 — T-shirt collections</h2>
+      <h3>Launch collection roadmap</h3>
+      <p>Each collection (called a "Drop") is limited edition. No restocking — this drives scarcity and hype. Each drop
+        has a Sanskrit name, a concept, and a tightly curated set of 3–6 tees.</p>
+
+      <div style="margin-top: 28px;">
+        <div class="card" style="margin-bottom: 20px;">
+          <div class="collection-num">DROP 001</div>
+          <div class="collection-title">SHUNYA — शून्य</div>
+          <div class="collection-meaning">Sanskrit: Zero / Emptiness / The Void</div>
+          <p>The debut collection. Pure minimalism. A single void circle on black. A Sanskrit character. Negative space
+            as the design. This drop establishes the brand's visual language — less is infinite.</p>
+          <div style="margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap;">
+            <span class="tag">3–4 tees</span>
+            <span class="tag tag-accent">Oversized fit</span>
+            <span class="tag">Embroidered chest logo</span>
+            <span class="tag">Back large print</span>
+            <span class="tag">Colors: black, charcoal</span>
+          </div>
+          <div style="margin-top: 16px;">
+            <h4>Design concepts in this drop</h4>
+            <ul>
+              <li>Tee 1: Void circle (large, back print) + VV monogram (left chest)</li>
+              <li>Tee 2: "शून्य" Sanskrit character — oversized, distressed back print</li>
+              <li>Tee 3: Orbital rings with Vyom Void wordmark — wraparound print</li>
+              <li>Tee 4: Blank with orbital mark embroidered only — "quiet luxury" piece</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 20px;">
+          <div class="collection-num">DROP 002</div>
+          <div class="collection-title">NAKSHATRA — नक्षत्र</div>
+          <div class="collection-meaning">Sanskrit: Star / Constellation</div>
+          <p>Dark star maps. Indian constellation mythology reimagined as graphic tees. Each piece features a specific
+            nakshatra (lunar mansion) rendered in technical diagram style — star map aesthetic meets streetwear.</p>
+          <div style="margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap;">
+            <span class="tag">4–5 tees</span>
+            <span class="tag tag-cyan">Star map prints</span>
+            <span class="tag">All-over print option</span>
+            <span class="tag">Colors: black, deep navy</span>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 20px;">
+          <div class="collection-num">DROP 003</div>
+          <div class="collection-title">KAAL — काल</div>
+          <div class="collection-meaning">Sanskrit: Time / Death / The eternal</div>
+          <p>Distorted time. Melting clocks, broken grids, glitch typography. The concept: time is an illusion. Very
+            Y2K-dark. Heavy use of glitch effects and corrupted text aesthetics printed on tees.</p>
+          <div style="margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap;">
+            <span class="tag">4 tees</span>
+            <span class="tag tag-accent">Glitch prints</span>
+            <span class="tag">Distressed finish</span>
+            <span class="tag">Acid wash base option</span>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 20px;">
+          <div class="collection-num">DROP 004</div>
+          <div class="collection-title">PRALAY — प्रलय</div>
+          <div class="collection-meaning">Sanskrit: Apocalypse / Great dissolution</div>
+          <p>The most intense drop. Cosmic destruction art — supernovas, collapsing stars, divine chaos. Bold,
+            graphic-heavy, maximum energy. Inspired by Hindu cosmological cycles of creation and destruction.</p>
+          <div style="margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap;">
+            <span class="tag">5 tees</span>
+            <span class="tag tag-accent">Heavy graphic</span>
+            <span class="tag">Supernova red accent prints</span>
+            <span class="tag">Double-sided print</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="collection-num">DROP 005</div>
+          <div class="collection-title">AATMA — आत्मा</div>
+          <div class="collection-meaning">Sanskrit: Soul / Self / Consciousness</div>
+          <p>The spiritual pivot. Dark introspective art. Sacred geometry, third-eye motifs, cosmic consciousness — but
+            rendered in dark, non-cheesy aesthetic. For the wearer who goes inward, not outward.</p>
+          <div style="margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap;">
+            <span class="tag">4 tees</span>
+            <span class="tag tag-cyan">Sacred geometry</span>
+            <span class="tag">Glow-in-dark print option</span>
+            <span class="tag">Premium 280gsm cotton</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top: 24px;">
+        <h4>T-shirt product spec (all drops)</h4>
+        <table>
+          <tr>
+            <th>Spec</th>
+            <th>Details</th>
+          </tr>
+          <tr>
+            <td>Fabric</td>
+            <td>100% ring-spun cotton, 240–280 GSM (premium weight)</td>
+          </tr>
+          <tr>
+            <td>Fit</td>
+            <td>Oversized / boxy drop-shoulder (primary). Regular fit as secondary option.</td>
+          </tr>
+          <tr>
+            <td>Sizes</td>
+            <td>XS, S, M, L, XL, XXL — Indian sizing guide included</td>
+          </tr>
+          <tr>
+            <td>Print method</td>
+            <td>DTG (Direct to Garment) for detailed graphics. Screen print for bold, limited runs.</td>
+          </tr>
+          <tr>
+            <td>Base colors</td>
+            <td>Void Black (#0D0D0D), Charcoal (#1C1C1C), Off-black (#111111)</td>
+          </tr>
+          <tr>
+            <td>Label</td>
+            <td>Custom woven neck label with "VYOM VOID" + drop number. No scratchy tags.</td>
+          </tr>
+          <tr>
+            <td>Packaging</td>
+            <td>Matte black poly bag + holographic void sticker + thank you card</td>
+          </tr>
+          <tr>
+            <td>Price range</td>
+            <td>₹899 – ₹1,799 depending on print complexity</td>
+          </tr>
+          <tr>
+            <td>POD platform</td>
+            <td>Printful / Printify / Blinkstore (India) integration</td>
+          </tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- WEBSITE STRUCTURE -->
+    <section>
+      <h2>08 — Website structure</h2>
+      <h3>Pages & sections for the website</h3>
+
+      <div style="margin-top: 20px;">
+        <div class="website-section">
+          <div class="ws-num">01</div>
+          <div>
+            <div class="ws-title">Home — The portal</div>
+            <div class="ws-desc">
+              Full-screen dark hero with animated particles / stars. Bold "VYOM VOID" headline. Tagline: "Where the sky
+              meets nothingness." Scroll-triggered sections: Featured drop countdown → New arrivals → Brand story teaser
+              → Instagram grid → Newsletter signup ("Enter the void").
+            </div>
+            <div style="margin-top: 8px;">
+              <span class="tag tag-accent">Countdown timer</span>
+              <span class="tag">Star particle animation</span>
+              <span class="tag tag-cyan">Drop hero banner</span>
+              <span class="tag">Social proof strip</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="website-section">
+          <div class="ws-num">02</div>
+          <div>
+            <div class="ws-title">Shop — All tees</div>
+            <div class="ws-desc">
+              Dark grid layout. Filter by: Drop number, Size, Price. Each product card shows front/back hover flip.
+              Price, drop tag, and "Only X left" stock indicator. Quick add to cart without leaving page.
+            </div>
+            <div style="margin-top: 8px;">
+              <span class="tag">Filter + sort</span>
+              <span class="tag">Front/back flip on hover</span>
+              <span class="tag tag-accent">Stock counter</span>
+              <span class="tag">Wishlist button</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="website-section">
+          <div class="ws-num">03</div>
+          <div>
+            <div class="ws-title">Collections — Drop library</div>
+            <div class="ws-desc">
+              Each drop gets its own full-page experience. Hero image with drop name in Sanskrit + English, the concept
+              story, and the full tee lineup. Past drops are "archived" (still viewable, not purchasable) — this builds
+              FOMO.
+            </div>
+            <div style="margin-top: 8px;">
+              <span class="tag">Drop story page</span>
+              <span class="tag tag-accent">Archive mode</span>
+              <span class="tag tag-cyan">Sanskrit x English naming</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="website-section">
+          <div class="ws-num">04</div>
+          <div>
+            <div class="ws-title">Product detail page</div>
+            <div class="ws-desc">
+              Large product images (front, back, detail, model). Size guide with Indian measurements. "This drop: X
+              pieces remaining." Material specs. Shipping info (India + international). Customer photos / UGC section.
+              Related products from same drop.
+            </div>
+            <div style="margin-top: 8px;">
+              <span class="tag">Zoom on hover</span>
+              <span class="tag">Indian size chart</span>
+              <span class="tag tag-accent">UGC customer photos</span>
+              <span class="tag">Drop scarcity badge</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="website-section">
+          <div class="ws-num">05</div>
+          <div>
+            <div class="ws-title">Drops — Upcoming launches</div>
+            <div class="ws-desc">
+              The hype page. Teaser images (blurred/censored). Countdown timer to next drop. Email waitlist / notify
+              button. Previous drops gallery. This page lives permanently and updates each cycle.
+            </div>
+            <div style="margin-top: 8px;">
+              <span class="tag tag-accent">Countdown timer</span>
+              <span class="tag">Waitlist signup</span>
+              <span class="tag">Blurred tease images</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="website-section">
+          <div class="ws-num">06</div>
+          <div>
+            <div class="ws-title">About — The void origin story</div>
+            <div class="ws-desc">
+              Brand manifesto. Sanskrit etymology of "Vyom". Founder note. Mission, vision, and values. Where the brand
+              is going. Dark editorial layout with large pull quotes. "We are not a brand. We are a signal."
+            </div>
+            <div style="margin-top: 8px;">
+              <span class="tag">Manifesto format</span>
+              <span class="tag tag-cyan">Pull quotes</span>
+              <span class="tag">Editorial layout</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="website-section">
+          <div class="ws-num">07</div>
+          <div>
+            <div class="ws-title">Size guide</div>
+            <div class="ws-desc">
+              Dedicated sizing page with Indian body measurements. Visual fit guide (how oversized vs regular looks).
+              Measurement how-to guide with diagrams. Helps reduce return rates significantly.
+            </div>
+          </div>
+        </div>
+
+        <div class="website-section">
+          <div class="ws-num">08</div>
+          <div>
+            <div class="ws-title">Cart + checkout</div>
+            <div class="ws-desc">
+              Dark themed. Order summary with product images. COD + UPI + Cards + Razorpay integration (India).
+              International: Stripe. Coupon code field. Estimated delivery date. Free shipping threshold display.
+            </div>
+            <div style="margin-top: 8px;">
+              <span class="tag">Razorpay (India)</span>
+              <span class="tag">COD option</span>
+              <span class="tag tag-accent">Shipping threshold bar</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="website-section">
+          <div class="ws-num">09</div>
+          <div>
+            <div class="ws-title">Track order</div>
+            <div class="ws-desc">
+              Simple order tracking page. Enter order ID or email. Shows current status with a dark-themed progress
+              indicator. Shiprocket / Delhivery tracking integration.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DESIGN ELEMENTS -->
+    <section>
+      <h2>09 — Design elements & motifs</h2>
+      <div class="grid-2">
+        <div>
+          <h3>Recurring visual motifs</h3>
+          <div class="card">
+            <ul>
+              <li><strong style="color:var(--stardust);">Void circle</strong> — A pure black circle. The void itself.
+                Used as a recurring mark across all drops.</li>
+              <li><strong style="color:var(--stardust);">Orbital rings</strong> — Thin concentric circles suggesting
+                planetary orbit / cosmic scale.</li>
+              <li><strong style="color:var(--stardust);">Sanskrit typography</strong> — Devanagari script used as
+                graphic art, not just text.</li>
+              <li><strong style="color:var(--stardust);">Star scatter</strong> — Dot-grid or star-field texture as
+                background layer on prints.</li>
+              <li><strong style="color:var(--stardust);">Glitch lines</strong> — Horizontal displacement / scan-line
+                artifacts for the KAAL collection.</li>
+              <li><strong style="color:var(--stardust);">Sacred geometry</strong> — Metatron's cube, Sri Yantra-inspired
+                geometric forms.</li>
+              <li><strong style="color:var(--stardust);">Coordinate text</strong> — Fictional cosmic coordinates as
+                decorative text elements.</li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <h3>Website UI elements</h3>
+          <div class="card">
+            <ul>
+              <li><strong style="color:var(--stardust);">Particle background</strong> — Slow-moving star particles on
+                homepage hero.</li>
+              <li><strong style="color:var(--stardust);">Scan-line overlay</strong> — Subtle scanline CSS texture on
+                hero sections.</li>
+              <li><strong style="color:var(--stardust);">Cursor effect</strong> — Custom cursor that leaves a brief
+                trail or glow on dark bg.</li>
+              <li><strong style="color:var(--stardust);">Hover reveal</strong> — Product cards flip front-to-back on
+                hover.</li>
+              <li><strong style="color:var(--stardust);">Countdown module</strong> — Monospaced countdown for drops.
+                DD:HH:MM:SS.</li>
+              <li><strong style="color:var(--stardust);">Loading screen</strong> — Brief void animation (circle
+                expanding to full black) on first load.</li>
+              <li><strong style="color:var(--stardust);">Scroll fade-up</strong> — Elements fade into view from bottom
+                as user scrolls.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOCIAL MEDIA -->
+    <section>
+      <h2>10 — Social media & marketing</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h4>Instagram strategy</h4>
+          <ul>
+            <li>Handle: <span style="color: var(--vyom-cyan);">@vyomvoid</span></li>
+            <li>Feed aesthetic: 100% dark. No bright photos.</li>
+            <li>Post types: product flats, model shoots at night, cosmic art, reels of drop reveals</li>
+            <li>Reels: drop countdown teaser → unboxing → "wear the void" styling videos</li>
+            <li>Story highlights: Drops, Size guide, Reviews, About</li>
+            <li>Posting frequency: 4–5 times/week</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>Content pillars</h4>
+          <ul>
+            <li><strong style="color:var(--stardust);">Product content</strong> — Flat lays, model shots, detail shots
+              (40%)</li>
+            <li><strong style="color:var(--stardust);">Dark art</strong> — Original cosmic / Sanskrit art posts (25%)
+            </li>
+            <li><strong style="color:var(--stardust);">Drop hype</strong> — Countdown, teaser, launch posts (20%)</li>
+            <li><strong style="color:var(--stardust);">Community</strong> — Customer UGC reposts, polls (15%)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="margin-top: 16px;">
+        <h4>Hashtag strategy</h4>
+        <p style="font-size: 13px; color: var(--muted);">Primary: #vyomvoid &nbsp;|&nbsp; Brand drops: #shunya
+          #nakshatra #kaal #pralay #aatma<br>
+          Niche: #darkfashion #indianstreetwearbrand #darkcore #cosmicart #sanskritfashion #genztshirts #limiteddrop
+          #indieapparelIndia<br>
+          Broad: #tshirtbrand #streetwearindia #fashionblogger #ootdindia #printondemand</p>
+      </div>
+    </section>
+
+    <!-- TAGLINES -->
+    <section>
+      <h2>11 — Taglines & copy bank</h2>
+      <div class="grid-2">
+        <div>
+          <h3>Primary taglines</h3>
+          <div class="card">
+            <blockquote style="border-left-color: var(--nebula-purple); font-size: 15px; margin-bottom: 12px;">"Where
+              the sky meets nothingness."</blockquote>
+            <blockquote style="border-left-color: var(--vyom-cyan); font-size: 15px; margin-bottom: 12px;">"Wear the
+              void."</blockquote>
+            <blockquote style="border-left-color: var(--nebula-purple); font-size: 15px; margin-bottom: 12px;">"Born
+              from vyom. Lost in the void."</blockquote>
+            <blockquote style="border-left-color: var(--vyom-cyan); font-size: 15px;">"Dark fabric. Infinite cosmos."
+            </blockquote>
+          </div>
+        </div>
+        <div>
+          <h3>CTA copy</h3>
+          <div class="card">
+            <table>
+              <tr>
+                <th>Context</th>
+                <th>CTA text</th>
+              </tr>
+              <tr>
+                <td>Shop button</td>
+                <td>"Enter the void →"</td>
+              </tr>
+              <tr>
+                <td>Drop waitlist</td>
+                <td>"Claim your frequency"</td>
+              </tr>
+              <tr>
+                <td>Newsletter</td>
+                <td>"Tune into the void"</td>
+              </tr>
+              <tr>
+                <td>Add to cart</td>
+                <td>"Claim this piece"</td>
+              </tr>
+              <tr>
+                <td>Buy now</td>
+                <td>"Wear the cosmos"</td>
+              </tr>
+              <tr>
+                <td>Sold out</td>
+                <td>"This drop has dissolved"</td>
+              </tr>
+              <tr>
+                <td>Notify me</td>
+                <td>"Alert me when space opens"</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TECH STACK -->
+    <section>
+      <h2>12 — Recommended tech stack</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h4>Website platform</h4>
+          <p style="font-size: 14px;"><strong style="color:var(--stardust);">Shopify</strong> (recommended) — best for
+            Indian POD + Razorpay + Shiprocket integrations.<br><br>Alt: <strong style="color:var(--stardust);">Next.js
+              + Medusa.js</strong> for custom builds.</p>
+        </div>
+        <div class="card">
+          <h4>POD fulfillment</h4>
+          <p style="font-size: 14px;"><strong style="color:var(--stardust);">Blinkstore</strong> — Best for India (fast
+            delivery, COD support, Shopify plugin).<br><br>Alt: <strong style="color:var(--stardust);">Printful</strong>
+            for international orders.</p>
+        </div>
+        <div class="card">
+          <h4>Payments</h4>
+          <p style="font-size: 14px;"><strong style="color:var(--stardust);">Razorpay</strong> — India (UPI, Cards,
+            Netbanking, COD)<br><br><strong style="color:var(--stardust);">Stripe</strong> — International orders</p>
+        </div>
+      </div>
+      <div class="grid-3" style="margin-top: 12px;">
+        <div class="card">
+          <h4>Shipping</h4>
+          <p style="font-size: 14px;"><strong style="color:var(--stardust);">Shiprocket</strong> — India-wide shipping,
+            COD, tracking page integration</p>
+        </div>
+        <div class="card">
+          <h4>Email marketing</h4>
+          <p style="font-size: 14px;"><strong style="color:var(--stardust);">Klaviyo</strong> — For drop launch emails,
+            cart abandonment, and waitlists</p>
+        </div>
+        <div class="card">
+          <h4>Analytics</h4>
+          <p style="font-size: 14px;"><strong style="color:var(--stardust);">GA4 + Hotjar</strong> — Track drop
+            performance, heatmaps, and funnel drops</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER NOTE -->
+    <section style="border: none; text-align: center; padding: 60px 0 40px;">
+      <div
+        style="font-family: 'Syne', sans-serif; font-size: 42px; font-weight: 800; color: var(--deep-space); letter-spacing: -2px;">
+        VYOM VOID</div>
+      <p style="font-size: 11px; letter-spacing: 4px; color: var(--muted); margin-top: 8px; text-transform: uppercase;">
+        Brand Identity Document · v1.0 · For website creation</p>
+      <div
+        style="margin-top: 20px; display: flex; justify-content: center; gap: 20px; font-size: 13px; color: var(--muted);">
+        <span>vyomvoid.com</span>
+        <span>·</span>
+        <span>vyomvoid.in</span>
+        <span>·</span>
+        <span>@vyomvoid</span>
+      </div>
+      <p style="margin-top: 30px; font-size: 12px; color: #444460; font-style: italic;">"The universe was born from
+        shunya — nothingness. So were we."</p>
+    </section>
+
+  </div>
+</body>
+
+</html>

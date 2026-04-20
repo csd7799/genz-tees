@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA INDIA — Admin Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;900&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #050505; --card: #0d0d0d; --border: rgba(255,255,255,0.08); --text: #f0f0f0; --muted: #888; --accent: #FF4500; --lime: #CCFF00; }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { background: var(--bg); color: var(--text); font-family: 'Outfit', sans-serif; padding: 2rem; }
+        h1 { font-family: 'Syne', sans-serif; font-size: 2rem; margin-bottom: 0.3rem; }
+        .subtitle { color: var(--muted); margin-bottom: 2rem; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+        .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; }
+        .stat-card h3 { font-size: 2rem; color: var(--accent); font-family: 'Syne', sans-serif; }
+        .stat-card p { color: var(--muted); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.3rem; }
+        .controls { display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; align-items: center; }
+        .search-input { background: var(--card); border: 1px solid var(--border); color: #fff; padding: 0.8rem 1.2rem; border-radius: 12px; font-size: 0.95rem; flex: 1; min-width: 200px; outline: none; font-family: 'Outfit'; }
+        .search-input:focus { border-color: var(--accent); }
+        .filter-btn { background: var(--card); border: 1px solid var(--border); color: var(--muted); padding: 0.6rem 1.2rem; border-radius: 50px; font-size: 0.8rem; font-weight: 700; cursor: pointer; font-family: 'Syne'; letter-spacing: 0.5px; transition: all 0.3s; }
+        .filter-btn:hover, .filter-btn.active { background: var(--accent); color: #000; border-color: var(--accent); }
+        .orders-table { width: 100%; border-collapse: collapse; }
+        .orders-table th { text-align: left; padding: 1rem; color: var(--accent); font-family: 'Syne'; font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid var(--border); }
+        .orders-table td { padding: 1rem; border-bottom: 1px solid var(--border); font-size: 0.9rem; vertical-align: top; }
+        .orders-table tr:hover { background: rgba(255,255,255,0.02); }
+        .status-badge { padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; display: inline-block; }
+        .status-confirmed { background: rgba(255,69,0,0.15); color: var(--accent); }
+        .status-processing { background: rgba(255,200,0,0.15); color: #FFD700; }
+        .status-printed { background: rgba(0,200,255,0.15); color: #00CED1; }
+        .status-shipped { background: rgba(100,149,237,0.15); color: #6495ED; }
+        .status-delivered { background: rgba(0,255,100,0.15); color: #00FF64; }
+        .status-cancelled { background: rgba(255,0,0,0.15); color: #FF4444; }
+        .status-pending_payment { background: rgba(255,255,255,0.05); color: var(--muted); }
+        .action-select { background: var(--card); border: 1px solid var(--border); color: #fff; padding: 0.4rem; border-radius: 8px; font-size: 0.8rem; cursor: pointer; outline: none; font-family: 'Outfit'; }
+        .action-select:focus { border-color: var(--accent); }
+        .del-btn { background: none; border: 1px solid rgba(255,0,0,0.3); color: #ff4444; padding: 0.4rem 0.8rem; border-radius: 8px; cursor: pointer; font-size: 0.75rem; font-weight: 700; transition: all 0.3s; }
+        .del-btn:hover { background: #ff4444; color: #000; }
+        .customer-details { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+        .customer-details strong { color: var(--text); }
+        .items-list { font-size: 0.8rem; color: var(--muted); }
+        .items-list div { margin-bottom: 0.2rem; }
+        .empty-state { text-align: center; padding: 4rem 2rem; color: var(--muted); }
+        .empty-state h3 { font-family: 'Syne'; font-size: 1.5rem; color: var(--accent); margin-bottom: 0.5rem; }
+        .refresh-btn { background: var(--accent); color: #000; border: none; padding: 0.7rem 1.5rem; border-radius: 50px; font-weight: 800; font-family: 'Syne'; cursor: pointer; font-size: 0.85rem; transition: transform 0.3s; }
+        .refresh-btn:hover { transform: scale(1.05); }
+        .header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
+        .logo-link { color: var(--text); text-decoration: none; font-family: 'Syne'; font-weight: 800; font-size: 1.2rem; opacity: 0.5; transition: opacity 0.3s; }
+        .logo-link:hover { opacity: 1; color: var(--accent); }
+        @media (max-width: 768px) {
+            body { padding: 1rem; }
+            .orders-table { font-size: 0.8rem; display: block; overflow-x: auto; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-row">
+        <div>
+            <h1>📊 ADMIN PANEL</h1>
+            <p class="subtitle">AURA INDIA — Order Management</p>
+        </div>
+        <div style="display:flex;gap:1rem;align-items:center;">
+            <button class="refresh-btn" onclick="loadData()">↻ REFRESH</button>
+            <a href="/" class="logo-link">← BACK TO STORE</a>
+        </div>
+    </div>
+
+    <div class="stats-grid" id="stats-grid"></div>
+
+    <div class="controls">
+        <input type="text" class="search-input" id="search" placeholder="Search by name, email, order ID...">
+        <button class="filter-btn active" data-filter="all">ALL</button>
+        <button class="filter-btn" data-filter="confirmed">CONFIRMED</button>
+        <button class="filter-btn" data-filter="processing">PROCESSING</button>
+        <button class="filter-btn" data-filter="shipped">SHIPPED</button>
+        <button class="filter-btn" data-filter="delivered">DELIVERED</button>
+    </div>
+
+    <table class="orders-table">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Items</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="orders-body"></tbody>
+    </table>
+    <div id="empty-state" class="empty-state" style="display:none;">
+        <h3>NO ORDERS YET</h3>
+        <p>Orders will appear here once customers start shopping 🛍️</p>
+    </div>
+
+    <script>
+        let allOrders = [];
+        let activeFilter = 'all';
+
+        async function loadData() {
+            try {
+                const [statsRes, ordersRes] = await Promise.all([
+                    fetch('/api/stats'),
+                    fetch('/api/orders')
+                ]);
+                const stats = await statsRes.json();
+                allOrders = await ordersRes.json();
+
+                document.getElementById('stats-grid').innerHTML = `
+                    <div class="stat-card"><h3>${stats.totalOrders}</h3><p>Total Orders</p></div>
+                    <div class="stat-card"><h3>₹${stats.totalRevenue.toLocaleString()}</h3><p>Total Revenue</p></div>
+                    <div class="stat-card"><h3>${stats.todayOrders}</h3><p>Today's Orders</p></div>
+                    <div class="stat-card"><h3>${stats.pending}</h3><p>Pending</p></div>
+                    <div class="stat-card"><h3>${stats.processing}</h3><p>Processing</p></div>
+                    <div class="stat-card"><h3>${stats.shipped}</h3><p>Shipped</p></div>
+                    <div class="stat-card"><h3>${stats.delivered}</h3><p>Delivered</p></div>
+                    <div class="stat-card"><h3>₹${stats.todayRevenue.toLocaleString()}</h3><p>Today's Revenue</p></div>
+                `;
+
+                renderOrders();
+            } catch (err) {
+                console.error('Failed to load:', err);
+            }
+        }
+
+        function renderOrders() {
+            const search = document.getElementById('search').value.toLowerCase();
+            let filtered = allOrders;
+
+            if (activeFilter !== 'all') filtered = filtered.filter(o => o.status === activeFilter);
+            if (search) filtered = filtered.filter(o =>
+                (o.orderId && o.orderId.toLowerCase().includes(search)) ||
+                (o.customer?.fullName && o.customer.fullName.toLowerCase().includes(search)) ||
+                (o.customer?.email && o.customer.email.toLowerCase().includes(search)) ||
+                (o.customer?.phone && o.customer.phone.includes(search))
+            );
+
+            const tbody = document.getElementById('orders-body');
+            const empty = document.getElementById('empty-state');
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = '';
+                empty.style.display = 'block';
+                return;
+            }
+            empty.style.display = 'none';
+
+            tbody.innerHTML = filtered.map(o => `
+                <tr>
+                    <td style="font-family:'Syne';font-size:0.75rem;color:var(--accent);">${(o.orderId || '').substring(0, 20)}...</td>
+                    <td class="customer-details">
+                        <strong>${o.customer?.fullName || 'N/A'}</strong><br>
+                        ${o.customer?.email || ''}<br>
+                        ${o.customer?.phone || ''}<br>
+                        ${o.customer?.address ? o.customer.address + ', ' : ''}${o.customer?.city || ''} ${o.customer?.state || ''} ${o.customer?.pincode || ''}
+                    </td>
+                    <td class="items-list">${(o.items || []).map(i => `<div>• ${i.name} (${i.size})</div>`).join('')}</td>
+                    <td style="font-weight:700;color:var(--lime);">₹${o.totalAmount}</td>
+                    <td><span class="status-badge status-${o.status}">${o.status.replace('_', ' ')}</span></td>
+                    <td style="font-size:0.8rem;color:var(--muted);">${new Date(o.createdAt).toLocaleDateString('en-IN')}<br>${new Date(o.createdAt).toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})}</td>
+                    <td>
+                        <select class="action-select" onchange="updateStatus('${o.orderId}', this.value)">
+                            <option value="confirmed" ${o.status==='confirmed'?'selected':''}>Confirmed</option>
+                            <option value="processing" ${o.status==='processing'?'selected':''}>Processing</option>
+                            <option value="printed" ${o.status==='printed'?'selected':''}>Printed</option>
+                            <option value="shipped" ${o.status==='shipped'?'selected':''}>Shipped</option>
+                            <option value="delivered" ${o.status==='delivered'?'selected':''}>Delivered</option>
+                            <option value="cancelled" ${o.status==='cancelled'?'selected':''}>Cancelled</option>
+                        </select>
+                        <br><br>
+                        <button class="del-btn" onclick="deleteOrder('${o.orderId}')">DELETE</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        async function updateStatus(orderId, status) {
+            await fetch(`/api/orders/${orderId}/status`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ status })
+            });
+            loadData();
+        }
+
+        async function deleteOrder(orderId) {
+            if (!confirm('Delete this order?')) return;
+            await fetch(`/api/orders/${orderId}`, { method: 'DELETE' });
+            loadData();
+        }
+
+        document.getElementById('search').addEventListener('input', renderOrders);
+
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                activeFilter = btn.dataset.filter;
+                renderOrders();
+            });
+        });
+
+        loadData();
+        setInterval(loadData, 30000); // Auto-refresh every 30s
+    </script>
+</body>
+</html>

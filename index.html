@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VYOM VOID | Dark Aesthetic Streetwear</title>
+    <meta name="description" content="VYOM VOID. 'Where the sky meets nothingness.' Premium, print-on-demand streetwear for Indian Gen Z. Dark, cosmic, minimalist.">
+    <meta name="keywords" content="Indian streetwear, Gen Z fashion India, dark aesthetic, print on demand, cosmic fashion, Sanskrit streetwear, minimalist fashion India">
+    
+    <!-- Open Graph for Social Media -->
+    <meta property="og:title" content="VYOM VOID | Where the sky meets nothingness">
+    <meta property="og:description" content="India's most iconic dark-aesthetic streetwear brand. Wear the void.">
+    <meta property="og:type" content="website">
+    
+    <!-- Schema.org Markup for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Store",
+      "name": "VYOM VOID",
+      "description": "Dark aesthetic streetwear for Indian Gen Z.",
+      "url": "https://vyomvoid.com",
+      "priceRange": "₹₹₹",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "IN"
+      }
+    }
+    </script>
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Space+Grotesk:wght@300;400;500;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <!-- Google tag (gtag.js) - Placeholder -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+
+    <!-- Meta Pixel Code - Placeholder -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', 'XXXXXXXXXXXXXXXX'); // Replace with your Pixel ID
+      fbq('track', 'PageView');
+    </script>
+</head>
+<body>
+    <!-- Meta Pixel fallback -->
+    <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=XXXXXXXXXXXXXXXX&ev=PageView&noscript=1"
+    /></noscript>
+    
+    <!-- Cosmic Background Elements -->
+    <canvas id="star-canvas"></canvas>
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+    <div class="noise-overlay"></div>
+    <div class="bg-gradient"></div>
+
+    <nav class="navbar">
+        <div class="logo">
+            <span style="font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.5rem;">VYOM<span style="color: var(--accent-primary);">VOID</span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#shunya">DROP 001: SHUNYA</a></li>
+            <li><a href="#drops">ALL DROPS</a></li>
+            <li><a href="#about">ABOUT</a></li>
+            <li><a href="#cart" class="cart-btn">CART (0)</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1 class="glitch" data-text="VYOM">VYOM</h1>
+            <h1 class="hero-subtext" style="color: var(--accent-primary);">VOID</h1>
+            <p><strong>WHERE THE SKY MEETS NOTHINGNESS.</strong><br>Dark fabric. Infinite cosmos. A signal from the void.</p>
+            <a href="#shunya" class="cta-btn">ENTER THE VOID</a>
+        </div>
+        <div class="scroll-indicator">
+            <span>SCROLL DOWN</span>
+            <div class="line"></div>
+        </div>
+    </header>
+
+    <div class="marquee">
+        <div class="marquee-content">
+            <span>⚡ DROP 001: SHUNYA — LIMITED EDITION</span>
+            <span>⚡ WHERE SKY MEETS NOTHINGNESS</span>
+            <span>⚡ ZERO WASTE PRINT ON DEMAND</span>
+            <span>⚡ 100% HEAVY COTTON OVERSIZED</span>
+            <span>⚡ DROP 001: SHUNYA — LIMITED EDITION</span>
+            <span>⚡ WHERE SKY MEETS NOTHINGNESS</span>
+            <span>⚡ ZERO WASTE PRINT ON DEMAND</span>
+            <span>⚡ 100% HEAVY COTTON OVERSIZED</span>
+        </div>
+    </div>
+
+    <!-- Featured Drop: SHUNYA -->
+    <section id="shunya" class="drops-section" style="padding-top: 6rem;">
+        <div class="section-header">
+            <h2>DROP <span class="highlight" style="color: var(--accent-primary);">001</span>: <span style="font-family: 'Syne', sans-serif; font-weight: 800; letter-spacing: -1px; color: var(--accent-primary);">SHUNYA</span></h2>
+            <p style="color: var(--text-muted); margin-top: 1rem; font-size: 1.1rem;">शून्य — The Void. Pure Minimalism.</p>
+            <a href="https://shunyavoid.com" class="cta-btn" style="margin-top: 2rem; display: inline-block; padding: 1rem 2rem;">SHOP DROP 001</a>
+        </div>
+    </section>
+
+    <!-- Product Grid (Default: Show SHUNYA products) -->
+    <section id="drops" class="drops-section">
+        <div class="section-header">
+            <h2>DROPS <span class="highlight">ARCHIVE</span></h2>
+            <p style="color: var(--text-muted); margin-top: 1rem; font-size: 1.1rem;">Past drops. Now archived in the cosmos.</p>
+        </div>
+        
+        <!-- Collection Filter Tabs -->
+        <div class="collection-tabs" id="collection-tabs">
+            <button class="tab-btn active" data-collection="all">ALL TEES</button>
+            <button class="tab-btn" data-collection="shunya">SHUNYA</button>
+            <button class="tab-btn" data-collection="nakshatra">NAKSHATRA</button>
+            <button class="tab-btn" data-collection="kaal">KAAL</button>
+            <button class="tab-btn" data-collection="pralay">PRALAY</button>
+        </div>
+
+        <div id="product-grid" class="product-grid">
+            <!-- Products injected via JS -->
+        </div>
+    </section>
+
+    <!-- Manifesto / About -->
+    <section id="about" class="pod-section">
+        <div class="pod-container">
+            <div class="pod-text">
+                <h2><span class="highlight" style="color: var(--accent-primary);">THE</span> SIGNAL</h2>
+                <p>VYOM (व्योम) is Sanskrit for sky or space — infinite, ancient. VOID is the modern expression of nothingness. <br><br> We are the collision of these two worlds. A brand born from the intersection of ancient Indian cosmic philosophy and the raw energy of Gen Z.<br><br>Every piece is a portal. Between the seen and unseen.</p>
+            </div>
+            <div class="pod-stats">
+                <div class="stat-box">
+                    <h3>100%</h3>
+                    <p>Print on Demand</p>
+                </div>
+                <div class="stat-box">
+                    <h3>0%</h3>
+                    <p>Fast Fashion</p>
+                </div>
+                <div class="stat-box">
+                    <h3>∞</h3>
+                    <p>Cosmic Energy</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-bottom">
+            <p>&copy; 2026 VYOM VOID. All rights reserved.</p>
+            <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1rem;">
+                <a href="#" style="color: var(--accent-secondary);">@vyomvoid</a>
+                <a href="#">Instagram</a>
+                <a href="#">Twitter</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Email Capture Modal -->
+    <div id="email-modal" class="email-modal">
+        <div class="email-content">
+            <span class="close-email" id="close-email">&times;</span>
+            <div class="email-text">
+                <h2><span class="highlight" style="color: var(--accent-primary);">CLAIM YOUR</span> FREQUENCY</h2>
+                <p>Get early access to new drops and a signal from the void.</p>
+                <form id="email-form">
+                    <input type="email" id="email-input" placeholder="Enter your email..." required>
+                    <button type="submit" class="cta-btn" style="width: 100%; margin-top: 1rem;">TUNE IN</button>
+                </form>
+                <p id="email-success-msg" style="display: none; color: var(--accent-secondary); margin-top: 1rem; font-weight: 700;">Signal received. Welcome to the void. ⚡</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="cart-modal">
+        <div class="cart-content">
+            <span class="close-cart">&times;</span>
+            <h2>Your Cart</h2>
+            <div id="cart-items"></div>
+            <div class="cart-total">
+                <strong>Total: </strong><span id="cart-total-amount">₹0</span>
+            </div>
+            <button id="checkout-btn" class="cta-btn" style="width: 100%; margin-top: 1rem;">SECURE CHECKOUT</button>
+        </div>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div id="product-detail-modal" class="product-detail-modal">
+        <div class="product-detail-content">
+            <span class="close-detail" id="close-detail">&times;</span>
+            <div class="product-detail-grid">
+                <!-- Image Gallery -->
+                <div class="product-gallery">
+                    <div class="gallery-main">
+                        <img id="gallery-main-img" src="" alt="Product Image" class="gallery-main-img">
+                        <div class="gallery-angle-badge" id="gallery-angle-badge">FRONT VIEW</div>
+                    </div>
+                    <div class="gallery-thumbnails" id="gallery-thumbnails"></div>
+                </div>
+
+                <!-- Product Info -->
+                <div class="product-detail-info">
+                    <div class="detail-collection-badge" id="detail-collection-badge">SHUNYA</div>
+                    <h2 id="detail-product-name">PRODUCT NAME</h2>
+                    <p class="detail-price" id="detail-price">₹999</p>
+                    
+                    <div class="detail-description">
+                        <p id="detail-description-text">Premium oversized tee. 100% heavy cotton, 240 GSM. Drop-shoulder fit with ribbed crew neck.</p>
+                    </div>
+
+                    <!-- Size Selector -->
+                    <div class="size-selector">
+                        <h4>SELECT SIZE</h4>
+                        <div class="size-options" id="size-options">
+                            <button class="size-btn" data-size="S">S</button>
+                            <button class="size-btn" data-size="M">M</button>
+                            <button class="size-btn active" data-size="L">L</button>
+                            <button class="size-btn" data-size="XL">XL</button>
+                            <button class="size-btn" data-size="XXL">XXL</button>
+                        </div>
+                        <div class="size-guide-link">
+                            <span id="size-error" class="size-error"></span>
+                        </div>
+                    </div>
+
+                    <!-- Size Guide -->
+                    <div class="size-guide">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Size</th><th>Chest (in)</th><th>Length (in)</th><th>Shoulder (in)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>S</td><td>40</td><td>27</td><td>19</td></tr>
+                                <tr><td>M</td><td>42</td><td>28</td><td>20</td></tr>
+                                <tr><td>L</td><td>44</td><td>29</td><td>21</td></tr>
+                                <tr><td>XL</td><td>46</td><td>30</td><td>22</td></tr>
+                                <tr><td>XXL</td><td>48</td><td>31</td><td>23</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <button id="detail-add-to-cart" class="cta-btn detail-add-btn">CLAIM THIS PIECE — <span id="detail-btn-price">₹999</span></button>
+                    
+                    <div class="detail-features">
+                        <div class="feature-item">🎨 <span>Print-On-Demand, Zero Waste</span></div>
+                        <div class="feature-item">📦 <span>Free Shipping India</span></div>
+                        <div class="feature-item">🧵 <span>240 GSM Heavy Cotton</span></div>
+                        <div class="feature-item">✂️ <span>Oversized Drop-Shoulder Fit</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customer Details Modal -->
+    <div id="customer-modal" class="customer-modal">
+        <div class="customer-content">
+            <span class="close-customer" id="close-customer">&times;</span>
+            <div class="customer-header">
+                <div class="checkout-steps">
+                    <div class="step active" id="step-1"><span class="step-num">1</span> Details</div>
+                    <div class="step-line"></div>
+                    <div class="step" id="step-2"><span class="step-num">2</span> Payment</div>
+                    <div class="step-line"></div>
+                    <div class="step" id="step-3"><span class="step-num">3</span> Done</div>
+                </div>
+            </div>
+
+            <h2><span class="highlight" style="color: var(--accent-primary);">SHIPPING</span> DETAILS</h2>
+            <p class="customer-subtitle">Where should we send the signal?</p>
+            
+            <form id="customer-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="cust-name">Full Name *</label>
+                        <input type="text" id="cust-name" placeholder="Your full name" required>
+                    </div>
+                </div>
+                <div class="form-row form-row-2">
+                    <div class="form-group">
+                        <label for="cust-email">Email *</label>
+                        <input type="email" id="cust-email" placeholder="you@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cust-phone">Phone *</label>
+                        <input type="tel" id="cust-phone" placeholder="+91 98765 43210" required pattern="[0-9+\s]{10,15}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cust-address">Street Address *</label>
+                    <textarea id="cust-address" rows="2" placeholder="House no, street, landmark..." required></textarea>
+                </div>
+                <div class="form-row form-row-3">
+                    <div class="form-group">
+                        <label for="cust-city">City *</label>
+                        <input type="text" id="cust-city" placeholder="Mumbai" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cust-state">State *</label>
+                        <select id="cust-state" required>
+                            <option value="">Select State</option>
+                            <option>Andhra Pradesh</option>
+                            <option>Arunachal Pradesh</option>
+                            <option>Assam</option>
+                            <option>Bihar</option>
+                            <option>Chhattisgarh</option>
+                            <option>Delhi</option>
+                            <option>Goa</option>
+                            <option>Gujarat</option>
+                            <option>Haryana</option>
+                            <option>Himachal Pradesh</option>
+                            <option>Jharkhand</option>
+                            <option>Karnataka</option>
+                            <option>Kerala</option>
+                            <option>Madhya Pradesh</option>
+                            <option>Maharashtra</option>
+                            <option>Manipur</option>
+                            <option>Meghalaya</option>
+                            <option>Mizoram</option>
+                            <option>Nagaland</option>
+                            <option>Odisha</option>
+                            <option>Punjab</option>
+                            <option>Rajasthan</option>
+                            <option>Sikkim</option>
+                            <option>Tamil Nadu</option>
+                            <option>Telangana</option>
+                            <option>Tripura</option>
+                            <option>Uttar Pradesh</option>
+                            <option>Uttarakhand</option>
+                            <option>West Bengal</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="cust-pincode">Pincode *</label>
+                        <input type="text" id="cust-pincode" placeholder="400001" required pattern="[0-9]{6}">
+                    </div>
+                </div>
+
+                <div class="order-summary-mini">
+                    <h4>ORDER SUMMARY</h4>
+                    <div id="customer-order-items"></div>
+                    <div class="order-summary-total">
+                        <strong>Total</strong>
+                        <strong id="customer-order-total">₹0</strong>
+                    </div>
+                </div>
+
+                <button type="submit" class="cta-btn" style="width: 100%; margin-top: 1.5rem; padding: 1.2rem;">PROCEED TO PAYMENT →</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        // Starfield animation script
+        const canvas = document.getElementById('star-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let stars = [];
+        const numStars = 200;
+
+        function resize() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+            initStars();
+        }
+
+        function initStars() {
+            stars = [];
+            for (let i = 0; i < numStars; i++) {
+                stars.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    z: Math.random() * width,
+                    radius: Math.random() * 1.5
+                });
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillStyle = 'white';
+
+            stars.forEach(star => {
+                let x = (star.x - width / 2) * (width / star.z);
+                let y = (star.y - height / 2) * (width / star.z);
+                let r = star.radius * (width / star.z);
+                
+                x += width / 2;
+                y += height / 2;
+
+                star.z -= 2;
+                if (star.z <= 0) star.z = width;
+
+                if (x > 0 && x < width && y > 0 && y < height) {
+                    ctx.globalAlpha = 1 - star.z / width;
+                    ctx.beginPath();
+                    ctx.arc(x, y, r, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            });
+            
+            requestAnimationFrame(draw);
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+        draw();
+    </script>
+</body>
+</html>

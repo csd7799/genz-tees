@@ -1,0 +1,239 @@
+@import "tailwindcss";
+
+/* ===== VYOM VOID — Global Styles ===== */
+
+/* Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap");
+
+/* ===== CSS Custom Properties ===== */
+:root {
+  --void-black: #0a0a0f;
+  --void-deep: #0e0e15;
+  --void-surface: #14141f;
+  --void-card: #1a1a2a;
+  --void-border: #2a2a3a;
+  --nebula: #7b2fbe;
+  --nebula-light: #9b4fde;
+  --nebula-dark: #5b1f9e;
+  --vyom-cyan: #00d4ff;
+  --stardust: #e8e8f0;
+  --muted: #b0b0c0;
+  --muted-dark: #6a6a80;
+}
+
+/* ===== Base Styles ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--nebula) var(--void-deep);
+}
+
+body {
+  background-color: var(--void-black);
+  color: var(--stardust);
+  font-family: "DM Sans", sans-serif;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ===== Custom Scrollbar (Webkit) ===== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--void-deep);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--nebula);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--nebula-light);
+}
+
+/* ===== Custom Cursor ===== */
+.custom-cursor {
+  width: 12px;
+  height: 12px;
+  background: var(--nebula);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  mix-blend-mode: screen;
+  transition: transform 0.15s ease-out;
+  box-shadow: 0 0 20px rgba(123, 47, 190, 0.6), 0 0 40px rgba(123, 47, 190, 0.3);
+}
+
+.custom-cursor-trail {
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(123, 47, 190, 0.4);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 99998;
+  transition: transform 0.3s ease-out, width 0.3s, height 0.3s;
+}
+
+/* ===== Selection ===== */
+::selection {
+  background: rgba(123, 47, 190, 0.4);
+  color: var(--stardust);
+}
+
+/* ===== Links ===== */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ===== Label Typography ===== */
+.label-text {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+}
+
+/* ===== Syne headings ===== */
+.heading-display {
+  font-family: "Syne", sans-serif;
+  font-weight: 800;
+}
+
+/* ===== Product Card Flip ===== */
+.card-flip-container {
+  perspective: 1000px;
+}
+.card-flip-inner {
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+.card-flip-container:hover .card-flip-inner {
+  transform: rotateY(180deg);
+}
+.card-flip-front,
+.card-flip-back {
+  backface-visibility: hidden;
+  position: absolute;
+  inset: 0;
+}
+.card-flip-back {
+  transform: rotateY(180deg);
+}
+
+/* ===== Gradient Text ===== */
+.gradient-text {
+  background: linear-gradient(135deg, var(--nebula) 0%, var(--vyom-cyan) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ===== Glass Effect ===== */
+.glass {
+  background: rgba(20, 20, 31, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(123, 47, 190, 0.15);
+}
+
+/* ===== Nebula Button Glow ===== */
+.btn-nebula {
+  background: var(--nebula);
+  color: var(--stardust);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+.btn-nebula::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(135deg, var(--nebula), var(--vyom-cyan));
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.btn-nebula:hover::before {
+  opacity: 1;
+}
+.btn-nebula:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(123, 47, 190, 0.5), 0 0 60px rgba(123, 47, 190, 0.2);
+}
+
+/* ===== Star particle base ===== */
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle var(--duration, 3s) ease-in-out infinite;
+  opacity: var(--opacity, 0.5);
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: var(--opacity, 0.5);
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.5);
+  }
+}
+
+/* ===== Loading Screen ===== */
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  background: var(--void-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.void-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--nebula);
+  animation: void-pulse 1.5s ease-out forwards;
+  box-shadow: 0 0 40px rgba(123, 47, 190, 0.6);
+}
+
+@keyframes void-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  70% {
+    transform: scale(80);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(80);
+    opacity: 0;
+  }
+}
+
+/* ===== Responsive Helpers ===== */
+@media (max-width: 768px) {
+  body {
+    cursor: auto;
+  }
+  .custom-cursor,
+  .custom-cursor-trail {
+    display: none !important;
+  }
+}
