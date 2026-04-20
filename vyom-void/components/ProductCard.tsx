@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { AlertTriangle } from "lucide-react";
 import DropBadge from "./DropBadge";
@@ -29,49 +30,16 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
               {/* Front */}
               <div className="card-flip-front w-full h-full flex items-center justify-center">
                 <div className="w-full h-full bg-gradient-to-br from-[#14141F] to-[#0E0E15] flex items-center justify-center relative">
-                  {/* Placeholder tee graphic */}
-                  <div className="relative">
-                    <svg
-                      width="160"
-                      height="180"
-                      viewBox="0 0 160 180"
-                      fill="none"
-                      className="opacity-40 group-hover:opacity-60 transition-opacity duration-500"
-                    >
-                      {/* T-shirt silhouette */}
-                      <path
-                        d="M40 30 L10 50 L25 65 L35 55 L35 165 L125 165 L125 55 L135 65 L150 50 L120 30 L100 40 L60 40 Z"
-                        stroke="#7B2FBE"
-                        strokeWidth="1.5"
-                        fill="rgba(123,47,190,0.05)"
-                      />
-                      {/* Center design element */}
-                      <circle
-                        cx="80"
-                        cy="100"
-                        r="25"
-                        stroke="#7B2FBE"
-                        strokeWidth="1"
-                        fill="none"
-                        opacity="0.6"
-                      />
-                      <circle
-                        cx="80"
-                        cy="100"
-                        r="15"
-                        stroke="#00D4FF"
-                        strokeWidth="0.5"
-                        fill="none"
-                        opacity="0.4"
-                      />
-                    </svg>
-                    <p className="absolute bottom-2 left-1/2 -translate-x-1/2 font-grotesk text-[10px] uppercase tracking-[0.3em] text-[#6A6A80]">
-                      FRONT
-                    </p>
-                  </div>
+                  <Image
+                    src={product.images.front}
+                    alt={product.name}
+                    fill
+                    className="object-cover transition-opacity duration-500 group-hover:opacity-0"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                  />
 
                   {/* Drop badge overlay */}
-                  <div className="absolute top-4 left-4">
+                  <div className="absolute top-4 left-4 z-10">
                     <DropBadge dropNumber={product.dropNumber} />
                   </div>
                 </div>
@@ -79,45 +47,14 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
 
               {/* Back */}
               <div className="card-flip-back w-full h-full flex items-center justify-center bg-gradient-to-br from-[#14141F] to-[#0E0E15]">
-                <div className="relative">
-                  <svg
-                    width="160"
-                    height="180"
-                    viewBox="0 0 160 180"
-                    fill="none"
-                    className="opacity-40"
-                  >
-                    <path
-                      d="M40 30 L10 50 L25 65 L35 55 L35 165 L125 165 L125 55 L135 65 L150 50 L120 30 L100 40 L60 40 Z"
-                      stroke="#00D4FF"
-                      strokeWidth="1.5"
-                      fill="rgba(0,212,255,0.03)"
-                    />
-                    {/* Back design */}
-                    <text
-                      x="80"
-                      y="95"
-                      textAnchor="middle"
-                      fill="#00D4FF"
-                      fontSize="8"
-                      fontFamily="Space Grotesk"
-                      opacity="0.6"
-                    >
-                      VYOM VOID
-                    </text>
-                    <line
-                      x1="50"
-                      y1="105"
-                      x2="110"
-                      y2="105"
-                      stroke="#00D4FF"
-                      strokeWidth="0.5"
-                      opacity="0.3"
-                    />
-                  </svg>
-                  <p className="absolute bottom-2 left-1/2 -translate-x-1/2 font-grotesk text-[10px] uppercase tracking-[0.3em] text-[#6A6A80]">
-                    BACK
-                  </p>
+                <div className="relative w-full h-full">
+                  <Image
+                    src={product.images.back}
+                    alt={`${product.name} back`}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                  />
                 </div>
               </div>
             </div>

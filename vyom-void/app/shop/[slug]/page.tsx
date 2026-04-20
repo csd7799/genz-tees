@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useParams } from "next/navigation";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { AlertTriangle, ShoppingBag, Truck, Ruler, FileText, Layers } from "lucide-react";
 import DropBadge from "@/components/DropBadge";
@@ -57,36 +58,28 @@ export default function ProductDetailPage() {
           {/* Left: Product Image */}
           <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}>
             <div className="relative aspect-[3/4] bg-[#0E0E15] rounded-2xl border border-[#2A2A3A] overflow-hidden flex items-center justify-center">
-              <div className="relative">
-                <svg width="240" height="280" viewBox="0 0 160 180" fill="none" className="opacity-50">
-                  <path d="M40 30 L10 50 L25 65 L35 55 L35 165 L125 165 L125 55 L135 65 L150 50 L120 30 L100 40 L60 40 Z"
-                    stroke={showFront ? "#7B2FBE" : "#00D4FF"} strokeWidth="1.5" fill={showFront ? "rgba(123,47,190,0.05)" : "rgba(0,212,255,0.03)"} />
-                  {showFront ? (
-                    <>
-                      <circle cx="80" cy="100" r="25" stroke="#7B2FBE" strokeWidth="1" fill="none" opacity="0.6" />
-                      <circle cx="80" cy="100" r="15" stroke="#00D4FF" strokeWidth="0.5" fill="none" opacity="0.4" />
-                    </>
-                  ) : (
-                    <>
-                      <text x="80" y="90" textAnchor="middle" fill="#00D4FF" fontSize="7" fontFamily="Space Grotesk" opacity="0.6">VYOM VOID</text>
-                      <text x="80" y="105" textAnchor="middle" fill="#6A6A80" fontSize="5" fontFamily="Space Grotesk" opacity="0.4">{product.drop}</text>
-                      <line x1="50" y1="115" x2="110" y2="115" stroke="#00D4FF" strokeWidth="0.5" opacity="0.2" />
-                    </>
-                  )}
-                </svg>
+              <div className="relative w-full h-full">
+                <Image
+                  src={showFront ? product.images.front : product.images.back}
+                  alt={product.name}
+                  fill
+                  className="object-cover transition-opacity duration-500"
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
               </div>
               {/* Front/Back toggle */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
                 <button onClick={() => setShowFront(true)}
-                  className={`font-grotesk text-[10px] uppercase tracking-[0.2em] px-4 py-2 rounded-full border transition-all ${showFront ? "border-[#7B2FBE] text-[#7B2FBE] bg-[rgba(123,47,190,0.1)]" : "border-[#2A2A3A] text-[#6A6A80]"}`}>
+                  className={`font-grotesk text-[10px] uppercase tracking-[0.2em] px-4 py-2 rounded-full border transition-all ${showFront ? "border-[#7B2FBE] text-[#7B2FBE] bg-[rgba(123,47,190,0.1)]" : "border-[#2A2A3A] text-[#6A6A80] bg-[#0A0A0F]"}`}>
                   Front
                 </button>
                 <button onClick={() => setShowFront(false)}
-                  className={`font-grotesk text-[10px] uppercase tracking-[0.2em] px-4 py-2 rounded-full border transition-all ${!showFront ? "border-[#00D4FF] text-[#00D4FF] bg-[rgba(0,212,255,0.1)]" : "border-[#2A2A3A] text-[#6A6A80]"}`}>
+                  className={`font-grotesk text-[10px] uppercase tracking-[0.2em] px-4 py-2 rounded-full border transition-all ${!showFront ? "border-[#00D4FF] text-[#00D4FF] bg-[rgba(0,212,255,0.1)]" : "border-[#2A2A3A] text-[#6A6A80] bg-[#0A0A0F]"}`}>
                   Back
                 </button>
               </div>
-              <div className="absolute top-4 left-4">
+              <div className="absolute top-4 left-4 z-10">
                 <DropBadge dropNumber={product.dropNumber} size="md" />
               </div>
             </div>
