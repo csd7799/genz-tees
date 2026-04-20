@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Instagram, Twitter, Mail, ArrowUpRight } from "lucide-react";
+import { Camera, X, Mail, ArrowUpRight } from "lucide-react";
 import { navLinks } from "@/lib/data";
 
 /* ===== Footer ===== */
@@ -29,7 +29,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full border border-[#2A2A3A] flex items-center justify-center text-[#6A6A80] hover:text-[#7B2FBE] hover:border-[#7B2FBE] transition-all duration-300"
               >
-                <Instagram size={16} />
+                <Camera size={16} />
               </a>
               <a
                 href="https://twitter.com/vyomvoid"
@@ -37,7 +37,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full border border-[#2A2A3A] flex items-center justify-center text-[#6A6A80] hover:text-[#7B2FBE] hover:border-[#7B2FBE] transition-all duration-300"
               >
-                <Twitter size={16} />
+                <X size={16} />
               </a>
               <a
                 href="mailto:hello@vyomvoid.com"
