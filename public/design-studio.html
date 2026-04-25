@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Design Studio — VYOM VOID</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #080810; --surface: #0f0f1a; --border: #1e1e30;
+    --accent: #7B2FBE; --cyan: #00D4FF; --text: #e8e8f0; --muted: #666;
+  }
+  body { background: var(--bg); color: var(--text); font-family: 'Outfit', sans-serif; min-height: 100vh; }
+  header {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1rem 2rem; border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+  header a { color: var(--muted); text-decoration: none; font-size: 0.8rem; }
+  header a:hover { color: var(--cyan); }
+  header h1 { font-family: 'Syne', sans-serif; font-size: 1.2rem; color: var(--accent); margin-left: auto; }
+  .studio { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; padding: 2rem; max-width: 1200px; margin: 0 auto; }
+  @media (max-width: 768px) { .studio { grid-template-columns: 1fr; } }
+  .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; }
+  .panel h2 { font-family: 'Syne', sans-serif; font-size: 1rem; color: var(--cyan); margin-bottom: 1rem; }
+  label { display: block; font-size: 0.8rem; color: var(--muted); margin-bottom: 0.4rem; }
+  textarea, input, select {
+    width: 100%; background: var(--bg); border: 1px solid var(--border);
+    border-radius: 8px; color: var(--text); font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem; padding: 0.6rem 0.8rem; outline: none;
+    transition: border-color 0.2s;
+  }
+  textarea:focus, input:focus, select:focus { border-color: var(--accent); }
+  textarea { resize: vertical; min-height: 100px; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+  .field { margin-top: 1rem; }
+  btn, .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
+    padding: 0.6rem 1.2rem; border-radius: 8px; border: none; cursor: pointer;
+    font-family: 'Outfit', sans-serif; font-size: 0.9rem; font-weight: 600;
+    transition: opacity 0.2s, transform 0.1s;
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { opacity: 0.85; }
+  .btn-success { background: #00c853; color: #000; }
+  .btn-success:hover { opacity: 0.85; }
+  .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .actions { display: flex; gap: 0.8rem; margin-top: 1.2rem; flex-wrap: wrap; }
+  #preview-area {
+    min-height: 300px; border: 2px dashed var(--border); border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden; background: #0a0a14;
+  }
+  #preview-area img { max-width: 100%; max-height: 400px; border-radius: 8px; }
+  #mockup-wrap { position: relative; display: inline-block; }
+  #mockup-tee { width: 280px; }
+  #design-overlay {
+    position: absolute; top: 22%; left: 50%; transform: translateX(-50%);
+    width: 42%; pointer-events: none;
+  }
+  .placeholder-text { color: var(--muted); font-size: 0.85rem; text-align: center; padding: 2rem; }
+  #status-bar {
+    margin-top: 1rem; padding: 0.6rem 1rem; border-radius: 8px;
+    font-size: 0.85rem; display: none;
+  }
+  .status-info { background: #0d1a2e; border: 1px solid #1a3a5c; color: var(--cyan); }
+  .status-success { background: #0d2e1a; border: 1px solid #1a5c3a; color: #00c853; }
+  .status-error { background: #2e0d0d; border: 1px solid #5c1a1a; color: #ff4444; }
+  .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.2); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="/admin">← Admin</a>
+  <a href="/admin/inventory" style="margin-left:0.5rem">Inventory</a>
+  <h1>✦ Design Studio</h1>
+</header>
+
+<div class="studio">
+  <!-- LEFT: Controls -->
+  <div class="panel">
+    <h2>Generate Design</h2>
+
+    <div class="field">
+      <label>Design Prompt</label>
+      <textarea id="prompt" placeholder="e.g. cosmic void Sanskrit mandala, dark purple neon glow, t-shirt graphic, transparent background"></textarea>
+    </div>
+
+    <div class="row">
+      <div>
+        <label>Collection</label>
+        <select id="collection">
+          <option value="shunya">SHUNYA — The Void</option>
+          <option value="nakshatra">NAKSHATRA — Stars</option>
+          <option value="kaal">KAAL — Time</option>
+          <option value="pralay">PRALAY — Apocalypse</option>
+          <option value="maya">MAYA — Illusion</option>
+          <option value="srishti">SRISHTI — Creation</option>
+          <option value="nirvana">NIRVANA — Liberation</option>
+          <option value="aatma">AATMA — Soul</option>
+        </select>
+      </div>
+      <div>
+        <label>Price (₹)</label>
+        <input type="number" id="price" value="1499" min="0" />
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Product Name</label>
+      <input type="text" id="product-name" placeholder="e.g. VOID MANDALA — BLACK" />
+    </div>
+
+    <div class="field">
+      <label>Description</label>
+      <textarea id="description" style="min-height:60px" placeholder="Short product description..."></textarea>
+    </div>
+
+    <div id="status-bar"></div>
+
+    <div class="actions">
+      <button class="btn btn-primary" id="btn-generate" onclick="generateDesign()">
+        ✦ Generate
+      </button>
+      <button class="btn btn-outline" id="btn-remove-bg" onclick="removeBg()" disabled>
+        Remove BG
+      </button>
+      <button class="btn btn-success" id="btn-add-store" onclick="addToStore()" disabled>
+        + Add to Store
+      </button>
+    </div>
+  </div>
+
+  <!-- RIGHT: Preview -->
+  <div class="panel">
+    <h2>Preview</h2>
+    <div id="preview-area">
+      <div class="placeholder-text">Generated design will appear here</div>
+    </div>
+    <div class="actions" style="margin-top:0.8rem">
+      <button class="btn btn-outline" id="btn-mockup" onclick="toggleMockup()" disabled>
+        Toggle Mockup
+      </button>
+      <a id="btn-download" class="btn btn-outline" style="display:none" download="vyomvoid-design.png">
+        ↓ Download
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Background removal via CDN -->
+<script type="module">
+  import { removeBackground } from 'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.4.5/dist/browser/index.mjs';
+  window._removeBg = removeBackground;
+</script>
+
+<script>
+  let generatedImageUrl = null;
+  let noBgBlob = null;
+  let mockupMode = false;
+
+  const TEE_MOCKUP = '/images/mockup_front.png';
+
+  function setStatus(msg, type = 'info') {
+    const bar = document.getElementById('status-bar');
+    bar.textContent = msg;
+    bar.className = `status-${type}`;
+    bar.style.display = 'block';
+  }
+
+  function clearStatus() {
+    document.getElementById('status-bar').style.display = 'none';
+  }
+
+  async function generateDesign() {
+    const prompt = document.getElementById('prompt').value.trim();
+    if (!prompt) { setStatus('Please enter a prompt.', 'error'); return; }
+
+    const btn = document.getElementById('btn-generate');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> Generating…';
+    setStatus('Generating via Pollinations…', 'info');
+
+    try {
+      const encoded = encodeURIComponent(prompt + ', transparent background, t-shirt graphic design, high contrast');
+      const url = `https://image.pollinations.ai/prompt/${encoded}?width=512&height=512&nologo=true&seed=${Date.now()}`;
+
+      // Fetch through a proxy-friendly approach — load as image
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+
+      await new Promise((resolve, reject) => {
+        img.onload = resolve;
+        img.onerror = () => tryHuggingFace(prompt).then(resolve).catch(reject);
+        img.src = url;
+      });
+
+      generatedImageUrl = img.src;
+      noBgBlob = null;
+      renderPreview(img.src);
+      document.getElementById('btn-remove-bg').disabled = false;
+      document.getElementById('btn-mockup').disabled = false;
+      document.getElementById('btn-add-store').disabled = false;
+
+      const dl = document.getElementById('btn-download');
+      dl.href = img.src;
+      dl.style.display = 'inline-flex';
+
+      setStatus('Design generated! Remove background for best results.', 'success');
+    } catch (err) {
+      setStatus('Generation failed: ' + err.message, 'error');
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = '✦ Generate';
+    }
+  }
+
+  async function tryHuggingFace(prompt) {
+    setStatus('Pollinations failed — trying HuggingFace fallback…', 'info');
+    const res = await fetch('/api/design/huggingface', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt })
+    });
+    if (!res.ok) throw new Error('HuggingFace fallback also failed');
+    const blob = await res.blob();
+    return URL.createObjectURL(blob);
+  }
+
+  function renderPreview(src, isBlob = false) {
+    const area = document.getElementById('preview-area');
+    if (mockupMode) {
+      area.innerHTML = `
+        <div id="mockup-wrap">
+          <img id="mockup-tee" src="${TEE_MOCKUP}" alt="tee mockup" />
+          <img id="design-overlay" src="${src}" alt="design" />
+        </div>`;
+    } else {
+      area.innerHTML = `<img src="${src}" alt="generated design" />`;
+    }
+  }
+
+  async function removeBg() {
+    if (!generatedImageUrl) return;
+    if (!window._removeBg) {
+      setStatus('Background removal library loading, please wait…', 'info');
+      await new Promise(r => setTimeout(r, 2000));
+      if (!window._removeBg) { setStatus('BG removal not available yet, try again.', 'error'); return; }
+    }
+
+    const btn = document.getElementById('btn-remove-bg');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> Removing…';
+    setStatus('Removing background (client-side, no API cost)…', 'info');
+
+    try {
+      const blob = await window._removeBg(generatedImageUrl);
+      noBgBlob = blob;
+      const blobUrl = URL.createObjectURL(blob);
+      renderPreview(blobUrl);
+
+      const dl = document.getElementById('btn-download');
+      dl.href = blobUrl;
+      dl.style.display = 'inline-flex';
+
+      setStatus('Background removed!', 'success');
+    } catch (err) {
+      setStatus('BG removal failed: ' + err.message, 'error');
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = 'Remove BG';
+    }
+  }
+
+  function toggleMockup() {
+    mockupMode = !mockupMode;
+    const src = noBgBlob ? URL.createObjectURL(noBgBlob) : generatedImageUrl;
+    if (src) renderPreview(src);
+    document.getElementById('btn-mockup').textContent = mockupMode ? 'Show Design Only' : 'Toggle Mockup';
+  }
+
+  async function addToStore() {
+    const name = document.getElementById('product-name').value.trim();
+    const price = parseInt(document.getElementById('price').value) || 1499;
+    const collection = document.getElementById('collection').value;
+    const description = document.getElementById('description').value.trim();
+
+    if (!name) { setStatus('Please enter a product name.', 'error'); return; }
+    if (!generatedImageUrl) { setStatus('Generate a design first.', 'error'); return; }
+
+    const btn = document.getElementById('btn-add-store');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> Adding…';
+    setStatus('Adding product to store…', 'info');
+
+    try {
+      const imageUrl = generatedImageUrl;
+
+      const payload = {
+        name,
+        price,
+        collection,
+        description: description || `${name} — Premium dark aesthetic streetwear from VYOM VOID.`,
+        images: [imageUrl],
+        inventory: { S: 50, M: 50, L: 50, XL: 50, XXL: 30 },
+        status: 'active'
+      };
+
+      const res = await fetch('/api/inventory/products', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || 'Failed to add product');
+      }
+
+      setStatus('✓ Product added to store!', 'success');
+      btn.innerHTML = '✓ Added!';
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.innerHTML = '+ Add to Store';
+      }, 3000);
+    } catch (err) {
+      setStatus('Failed: ' + err.message, 'error');
+      btn.disabled = false;
+      btn.innerHTML = '+ Add to Store';
+    }
+  }
+</script>
+</body>
+</html>

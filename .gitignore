@@ -5,3 +5,18 @@ node-v20.11.1-win-x64/
 dist/
 build/
 .next/
+
+# Data files (contain customer/order data)
+orders.json
+history.json
+collections.json
+data/*.json
+prisma/dev.db
+prisma/dev.db-journal
+backups/
+
+# Images generated at runtime
+images/*.png
+images/*.jpg
+public/designs/
+public/mockups/

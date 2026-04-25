@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Design {
+  id          String   @id @default(cuid())
+  prompt      String
+  provider    String?
+  quality     String?
+  imageUrl    String?
+  timestamp   DateTime @default(now())
+  status      String @default("generating")
+  metadata    Json?
+
+  @@map("designs")
+}
+
+model Collection {
+  id            String   @id @default(cuid())
+  name          String
+  description   String?
+  designIds     String[]
+  products      String[]
+  status        String @default("draft")
+  timestamp     DateTime @default(now())
+  dropNumber    Int?
+
+  @@map("collections")
+}
+
+model Order {
+  id            String   @id @default(cuid())
+  customer      Json
+  items         Json
+  totalAmount   Float
+  status        String @default("pending")
+  timestamp     DateTime @default(now())
+  metadata      Json?
+
+  @@map("orders")
+}
+
+model MarketingPost {
+  id            String   @id @default(cuid())
+  productId     String
+  title         String
+  type          String
+  caption       String
+  hashtags      String[]
+  imageUrl      String?
+  platform      String[]
+  scheduledFor  DateTime
+  status        String @default("scheduled")
+  postedAt      DateTime?
+  createdAt      DateTime @default(now())
+
+  @@map("marketing_posts")
+}

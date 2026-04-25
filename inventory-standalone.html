@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VYOM VOID - Inventory Management (Standalone)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #050505;
+            --card: #0A0A0F;
+            --border: rgba(255, 255, 255, 0.04);
+            --accent: #7B2FBE;
+            --cyan: #00D4FF;
+            --text: #E8E8F0;
+            --muted: #666;
+            --success: #27AE60;
+            --warning: #F39C12;
+            --error: #E74C3C;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--bg); color: var(--text); font-family: 'Outfit', sans-serif; min-height: 100vh; }
+
+        .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+        
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+        h1 { font-family: 'Syne'; font-size: 2rem; font-weight: 800; letter-spacing: -1px; }
+        .subtitle { font-size: 0.8rem; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-top: 0.5rem; }
+
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+        .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; text-align: center; }
+        .stat-value { font-family: 'Syne'; font-size: 2rem; font-weight: 800; color: var(--accent); }
+        .stat-label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+
+        .action-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; gap: 1rem; flex-wrap: wrap; }
+        .search-bar { display: flex; gap: 0.5rem; flex: 1; max-width: 400px; }
+        .search-input { flex: 1; background: var(--card); border: 1px solid var(--border); color: var(--text); padding: 0.8rem 1rem; border-radius: 6px; outline: none; }
+        .search-input:focus { border-color: var(--accent); }
+
+        .btn { background: var(--accent); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 6px; font-family: 'Syne'; font-weight: 600; font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: 0.3s; }
+        .btn:hover { background: #6B2696; }
+        .btn-secondary { background: transparent; border: 1px solid var(--border); color: var(--text); }
+        .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+        .btn-danger { background: var(--error); }
+        .btn-danger:hover { background: #C0392B; }
+        .btn-sm { padding: 0.4rem 0.8rem; font-size: 0.7rem; }
+
+        .table-container { background: var(--card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-bottom: 2rem; }
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; padding: 1rem; font-family: 'Syne'; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--border); background: rgba(0, 0, 0, 0.3); }
+        td { padding: 1rem; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+        tr:hover { background: rgba(123, 47, 190, 0.05); }
+
+        .status-badge { display: inline-block; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        .status-active { background: rgba(39, 174, 96, 0.2); color: var(--success); border: 1px solid var(--success); }
+        .status-inactive { background: rgba(231, 76, 60, 0.2); color: var(--error); border: 1px solid var(--error); }
+
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(4px); }
+        .modal.active { display: flex; align-items: center; justify-content: center; }
+        .modal-content { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; width: 90%; max-width: 600px; max-height: 90vh; overflow-y: auto; position: relative; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+        .modal-title { font-family: 'Syne'; font-size: 1.5rem; font-weight: 700; }
+        .close-modal { background: none; border: none; color: var(--muted); font-size: 1.5rem; cursor: pointer; padding: 0.5rem; border-radius: 4px; }
+        .close-modal:hover { color: var(--error); background: rgba(231, 76, 60, 0.1); }
+
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; color: var(--text); font-weight: 500; margin-bottom: 0.5rem; font-size: 0.9rem; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; background: #000; border: 1px solid var(--border); border-radius: 6px; padding: 0.8rem; color: var(--text); font-family: 'Outfit'; font-size: 0.9rem; outline: none; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--accent); }
+
+        .inventory-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; }
+        .inventory-input { text-align: center; }
+        .inventory-input label { font-size: 0.7rem; margin-bottom: 0.3rem; }
+
+        .alert { padding: 1rem; border-radius: 6px; margin-bottom: 1rem; border: 1px solid; position: fixed; top: 20px; right: 20px; z-index: 9999; min-width: 300px; }
+        .alert-success { background: rgba(39, 174, 96, 0.1); border-color: var(--success); color: var(--success); }
+        .alert-error { background: rgba(231, 76, 60, 0.1); border-color: var(--error); color: var(--error); }
+
+        .table-actions { display: flex; gap: 0.5rem; }
+        
+        .filter-tabs { display: flex; gap: 0.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--border); }
+        .filter-tab { background: none; border: none; color: var(--muted); padding: 1rem 1.5rem; font-family: 'Syne'; font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; border-bottom: 2px solid transparent; }
+        .filter-tab:hover, .filter-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+        @media (max-width: 768px) {
+            .action-bar { flex-direction: column; align-items: stretch; }
+            .search-bar { max-width: none; }
+            .inventory-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div>
+                <h1>VYOM VOID</h1>
+                <div class="subtitle">Inventory Management (Standalone)</div>
+            </div>
+            <div style="font-size: 0.8rem; color: var(--muted);">
+                💾 Data saved to browser
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value" id="total-products">0</div>
+                <div class="stat-label">Total Products</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="total-collections">0</div>
+                <div class="stat-label">Collections</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="total-inventory">0</div>
+                <div class="stat-label">Total Inventory</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="low-stock-count">0</div>
+                <div class="stat-label">Low Stock</div>
+            </div>
+        </div>
+
+        <div class="filter-tabs">
+            <button class="filter-tab active" onclick="showSection('products')">Products</button>
+            <button class="filter-tab" onclick="showSection('collections')">Collections</button>
+            <button class="filter-tab" onclick="showSection('inventory')">Inventory Status</button>
+        </div>
+
+        <!-- Products Section -->
+        <div id="products-section">
+            <div class="action-bar">
+                <div class="search-bar">
+                    <input type="text" class="search-input" id="product-search" placeholder="Search products..." onkeyup="searchProducts()">
+                    <button class="btn btn-secondary" onclick="searchProducts()">Search</button>
+                </div>
+                <div>
+                    <select id="collection-filter" class="btn btn-secondary" onchange="filterProducts()">
+                        <option value="">All Collections</option>
+                    </select>
+                    <button class="btn" onclick="openProductModal()">Add Product</button>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Collection</th>
+                            <th>Price</th>
+                            <th>Inventory</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="products-table"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Collections Section -->
+        <div id="collections-section" style="display: none;">
+            <div class="action-bar">
+                <div class="search-bar">
+                    <input type="text" class="search-input" id="collection-search" placeholder="Search collections..." onkeyup="searchCollections()">
+                    <button class="btn btn-secondary" onclick="searchCollections()">Search</button>
+                </div>
+                <button class="btn" onclick="openCollectionModal()">Add Collection</button>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Collection</th>
+                            <th>Products</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="collections-table"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Inventory Section -->
+        <div id="inventory-section" style="display: none;">
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Size</th>
+                            <th>Stock</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inventory-table"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Modal -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="product-modal-title">Add Product</h2>
+                <button class="close-modal" onclick="closeProductModal()">&times;</button>
+            </div>
+            
+            <form id="product-form">
+                <div class="form-group">
+                    <label for="product-name">Product Name *</label>
+                    <input type="text" id="product-name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="product-price">Price *</label>
+                    <input type="text" id="product-price" placeholder="₹1299" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="product-collection">Collection *</label>
+                    <select id="product-collection" required>
+                        <option value="">Select Collection</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="product-status">Status</label>
+                    <select id="product-status">
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="product-description">Description</label>
+                    <textarea id="product-description" rows="3"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Inventory (Stock per size)</label>
+                    <div class="inventory-grid">
+                        <div class="inventory-input">
+                            <label>S</label>
+                            <input type="number" id="inv-S" min="0" value="0">
+                        </div>
+                        <div class="inventory-input">
+                            <label>M</label>
+                            <input type="number" id="inv-M" min="0" value="0">
+                        </div>
+                        <div class="inventory-input">
+                            <label>L</label>
+                            <input type="number" id="inv-L" min="0" value="0">
+                        </div>
+                        <div class="inventory-input">
+                            <label>XL</label>
+                            <input type="number" id="inv-XL" min="0" value="0">
+                        </div>
+                        <div class="inventory-input">
+                            <label>XXL</label>
+                            <input type="number" id="inv-XXL" min="0" value="0">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="btn">Save Product</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeProductModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Collection Modal -->
+    <div id="collection-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="collection-modal-title">Add Collection</h2>
+                <button class="close-modal" onclick="closeCollectionModal()">&times;</button>
+            </div>
+            
+            <form id="collection-form">
+                <div class="form-group">
+                    <label for="collection-name">Collection Name *</label>
+                    <input type="text" id="collection-name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="collection-meaning">Meaning/Concept</label>
+                    <input type="text" id="collection-meaning" placeholder="e.g., The Void, Creation">
+                </div>
+                
+                <div class="form-group">
+                    <label for="collection-color">Theme Color</label>
+                    <input type="color" id="collection-color" value="#7B2FBE">
+                </div>
+                
+                <div class="form-group">
+                    <label for="collection-status">Status</label>
+                    <select id="collection-status">
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="btn">Save Collection</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeCollectionModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Initialize data
+        let products = JSON.parse(localStorage.getItem('vyom_products')) || [
+            { id: "prod_001", name: "VOID CIRCLE — BLACK", price: "₹1299", collection: "shunya", status: "active", inventory: { S: 50, M: 75, L: 100, XL: 75, XXL: 50 }, desc: "Pure minimalism. A single void circle on black." },
+            { id: "prod_002", name: "SHUNYA SANSKRIT — CHARCOAL", price: "₹1399", collection: "shunya", status: "active", inventory: { S: 30, M: 45, L: 60, XL: 45, XXL: 30 }, desc: "The Sanskrit character 'शून्य' in oversized print." },
+            { id: "prod_003", name: "STAR MAP — DEEP NAVY", price: "₹1599", collection: "nakshatra", status: "active", inventory: { S: 40, M: 60, L: 80, XL: 60, XXL: 40 }, desc: "Indian constellation mythology rendered in technical style." },
+            { id: "prod_004", name: "GLITCH TIME — OFF BLACK", price: "₹1399", collection: "kaal", status: "active", inventory: { S: 45, M: 65, L: 85, XL: 65, XXL: 45 }, desc: "Distorted time. Melting clocks, broken grids." },
+            { id: "prod_005", name: "BIG BANG — BLACK", price: "₹1799", collection: "srishti", status: "active", inventory: { S: 10, M: 20, L: 30, XL: 20, XXL: 10 }, desc: "Explosive creation pattern. Radiating energy from center." }
+        ];
+
+        let collections = JSON.parse(localStorage.getItem('vyom_collections')) || [
+            { id: "col_001", name: "SHUNYA", color: "#7B2FBE", meaning: "The Void", status: "active" },
+            { id: "col_002", name: "NAKSHATRA", color: "#00D4FF", meaning: "Star / Constellation", status: "active" },
+            { id: "col_003", name: "KAAL", color: "#FF3864", meaning: "Time / Death", status: "active" },
+            { id: "col_004", name: "SRISHTI", color: "#FF006E", meaning: "Creation", status: "active" }
+        ];
+
+        let currentEditingProduct = null;
+        let currentEditingCollection = null;
+
+        // Save data to localStorage
+        function saveData() {
+            localStorage.setItem('vyom_products', JSON.stringify(products));
+            localStorage.setItem('vyom_collections', JSON.stringify(collections));
+        }
+
+        // Update stats
+        function updateStats() {
+            document.getElementById('total-products').textContent = products.length;
+            document.getElementById('total-collections').textContent = collections.length;
+            
+            const totalInventory = products.reduce((sum, p) => {
+                return sum + Object.values(p.inventory).reduce((a, b) => a + b, 0);
+            }, 0);
+            document.getElementById('total-inventory').textContent = totalInventory;
+            
+            const lowStock = products.filter(p => 
+                Object.values(p.inventory).some(qty => qty > 0 && qty <= 20)
+            ).length;
+            document.getElementById('low-stock-count').textContent = lowStock;
+        }
+
+        // Show section
+        function showSection(section) {
+            document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            document.getElementById('products-section').style.display = section === 'products' ? 'block' : 'none';
+            document.getElementById('collections-section').style.display = section === 'collections' ? 'block' : 'none';
+            document.getElementById('inventory-section').style.display = section === 'inventory' ? 'block' : 'none';
+            
+            if (section === 'products') renderProducts();
+            if (section === 'collections') renderCollections();
+            if (section === 'inventory') renderInventory();
+        }
+
+        // Render products
+        function renderProducts(productsToRender = products) {
+            const tbody = document.getElementById('products-table');
+            tbody.innerHTML = productsToRender.map(product => {
+                const totalInventory = Object.values(product.inventory).reduce((sum, qty) => sum + qty, 0);
+                const collection = collections.find(c => c.name.toLowerCase() === product.collection.toLowerCase());
+                
+                return `
+                    <tr>
+                        <td>
+                            <div style="font-weight: 600;">${product.name}</div>
+                            <div style="font-size: 0.8rem; color: var(--muted);">${product.desc ? product.desc.substring(0, 40) + '...' : ''}</div>
+                        </td>
+                        <td>
+                            <span class="status-badge" style="background: ${collection ? collection.color : '#7B2FBE'}20; color: ${collection ? collection.color : '#7B2FBE'}; border-color: ${collection ? collection.color : '#7B2FBE'};">
+                                ${product.collection.toUpperCase()}
+                            </span>
+                        </td>
+                        <td style="font-weight: 600;">${product.price}</td>
+                        <td>${totalInventory} units</td>
+                        <td>
+                            <span class="status-badge status-${product.status}">${product.status}</span>
+                        </td>
+                        <td>
+                            <div class="table-actions">
+                                <button class="btn btn-sm btn-secondary" onclick="editProduct('${product.id}')">Edit</button>
+                                <button class="btn btn-sm btn-danger" onclick="deleteProduct('${product.id}')">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+            
+            updateCollectionFilter();
+        }
+
+        // Render collections
+        function renderCollections() {
+            const tbody = document.getElementById('collections-table');
+            tbody.innerHTML = collections.map(collection => {
+                const productCount = products.filter(p => p.collection.toLowerCase() === collection.name.toLowerCase()).length;
+                
+                return `
+                    <tr>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <div style="width: 20px; height: 20px; background: ${collection.color}; border-radius: 4px;"></div>
+                                <div>
+                                    <div style="font-weight: 600;">${collection.name}</div>
+                                    <div style="font-size: 0.8rem; color: var(--muted);">${collection.meaning || ''}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>${productCount} products</td>
+                        <td>
+                            <span class="status-badge status-${collection.status}">${collection.status}</span>
+                        </td>
+                        <td>
+                            <div class="table-actions">
+                                <button class="btn btn-sm btn-secondary" onclick="editCollection('${collection.id}')">Edit</button>
+                                <button class="btn btn-sm btn-danger" onclick="deleteCollection('${collection.id}')">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Render inventory
+        function renderInventory() {
+            const tbody = document.getElementById('inventory-table');
+            let items = [];
+            
+            products.forEach(product => {
+                Object.entries(product.inventory).forEach(([size, quantity]) => {
+                    const status = quantity === 0 ? 'out' : quantity <= 20 ? 'low' : 'good';
+                    items.push({ product, size, quantity, status });
+                });
+            });
+            
+            tbody.innerHTML = items.map(item => {
+                const statusClass = item.status === 'out' ? 'status-inactive' : item.status === 'low' ? 'status-active' : 'status-active';
+                const statusText = item.status === 'out' ? 'Out of Stock' : item.status === 'low' ? 'Low Stock' : 'In Stock';
+                
+                return `
+                    <tr>
+                        <td>${item.product.name}</td>
+                        <td>${item.size}</td>
+                        <td>${item.quantity}</td>
+                        <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                        <td>
+                            <button class="btn btn-sm" onclick="editProduct('${item.product.id}')">Update</button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Update collection filter
+        function updateCollectionFilter() {
+            const select = document.getElementById('collection-filter');
+            const productSelect = document.getElementById('product-collection');
+            
+            const options = '<option value="">All Collections</option>' + 
+                collections.map(c => `<option value="${c.name.toLowerCase()}">${c.name}</option>`).join('');
+            
+            select.innerHTML = options;
+            productSelect.innerHTML = '<option value="">Select Collection</option>' + 
+                collections.map(c => `<option value="${c.name.toLowerCase()}">${c.name}</option>`).join('');
+        }
+
+        // Product CRUD
+        function openProductModal(product = null) {
+            currentEditingProduct = product;
+            const modal = document.getElementById('product-modal');
+            const title = document.getElementById('product-modal-title');
+            const form = document.getElementById('product-form');
+            
+            title.textContent = product ? 'Edit Product' : 'Add Product';
+            
+            if (product) {
+                document.getElementById('product-name').value = product.name;
+                document.getElementById('product-price').value = product.price;
+                document.getElementById('product-collection').value = product.collection;
+                document.getElementById('product-status').value = product.status;
+                document.getElementById('product-description').value = product.desc || '';
+                
+                const inventory = product.inventory || { S: 0, M: 0, L: 0, XL: 0, XXL: 0 };
+                ['S', 'M', 'L', 'XL', 'XXL'].forEach(size => {
+                    document.getElementById(`inv-${size}`).value = inventory[size] || 0;
+                });
+            } else {
+                form.reset();
+                ['S', 'M', 'L', 'XL', 'XXL'].forEach(size => {
+                    document.getElementById(`inv-${size}`).value = 50;
+                });
+            }
+            
+            modal.classList.add('active');
+        }
+
+        function closeProductModal() {
+            document.getElementById('product-modal').classList.remove('active');
+            currentEditingProduct = null;
+        }
+
+        function editProduct(productId) {
+            const product = products.find(p => p.id === productId);
+            if (product) openProductModal(product);
+        }
+
+        function deleteProduct(productId) {
+            if (!confirm('Delete this product?')) return;
+            products = products.filter(p => p.id !== productId);
+            saveData();
+            renderProducts();
+            updateStats();
+            showAlert('Product deleted', 'success');
+        }
+
+        document.getElementById('product-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('product-name').value,
+                price: document.getElementById('product-price').value,
+                collection: document.getElementById('product-collection').value,
+                status: document.getElementById('product-status').value,
+                desc: document.getElementById('product-description').value,
+                inventory: {
+                    S: parseInt(document.getElementById('inv-S').value) || 0,
+                    M: parseInt(document.getElementById('inv-M').value) || 0,
+                    L: parseInt(document.getElementById('inv-L').value) || 0,
+                    XL: parseInt(document.getElementById('inv-XL').value) || 0,
+                    XXL: parseInt(document.getElementById('inv-XXL').value) || 0
+                }
+            };
+            
+            if (currentEditingProduct) {
+                const index = products.findIndex(p => p.id === currentEditingProduct.id);
+                products[index] = { ...products[index], ...formData };
+                showAlert('Product updated', 'success');
+            } else {
+                formData.id = 'prod_' + Date.now();
+                products.push(formData);
+                showAlert('Product created', 'success');
+            }
+            
+            saveData();
+            closeProductModal();
+            renderProducts();
+            updateStats();
+        });
+
+        // Collection CRUD
+        function openCollectionModal(collection = null) {
+            currentEditingCollection = collection;
+            const modal = document.getElementById('collection-modal');
+            const title = document.getElementById('collection-modal-title');
+            
+            title.textContent = collection ? 'Edit Collection' : 'Add Collection';
+            
+            if (collection) {
+                document.getElementById('collection-name').value = collection.name;
+                document.getElementById('collection-meaning').value = collection.meaning || '';
+                document.getElementById('collection-color').value = collection.color || '#7B2FBE';
+                document.getElementById('collection-status').value = collection.status;
+            } else {
+                document.getElementById('collection-form').reset();
+            }
+            
+            modal.classList.add('active');
+        }
+
+        function closeCollectionModal() {
+            document.getElementById('collection-modal').classList.remove('active');
+            currentEditingCollection = null;
+        }
+
+        function editCollection(collectionId) {
+            const collection = collections.find(c => c.id === collectionId);
+            if (collection) openCollectionModal(collection);
+        }
+
+        function deleteCollection(collectionId) {
+            const collection = collections.find(c => c.id === collectionId);
+            if (!collection) return;
+            
+            const hasProducts = products.some(p => p.collection.toLowerCase() === collection.name.toLowerCase());
+            if (hasProducts) {
+                showAlert('Cannot delete collection with products', 'error');
+                return;
+            }
+            
+            if (!confirm(`Delete "${collection.name}"?`)) return;
+            
+            collections = collections.filter(c => c.id !== collectionId);
+            saveData();
+            renderCollections();
+            updateStats();
+            showAlert('Collection deleted', 'success');
+        }
+
+        document.getElementById('collection-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('collection-name').value,
+                meaning: document.getElementById('collection-meaning').value,
+                color: document.getElementById('collection-color').value,
+                status: document.getElementById('collection-status').value
+            };
+            
+            if (currentEditingCollection) {
+                const index = collections.findIndex(c => c.id === currentEditingCollection.id);
+                collections[index] = { ...collections[index], ...formData };
+                showAlert('Collection updated', 'success');
+            } else {
+                formData.id = 'col_' + Date.now();
+                collections.push(formData);
+                showAlert('Collection created', 'success');
+            }
+            
+            saveData();
+            closeCollectionModal();
+            renderCollections();
+            updateStats();
+        });
+
+        // Search and filter
+        function searchProducts() {
+            const searchTerm = document.getElementById('product-search').value.toLowerCase();
+            const collectionFilter = document.getElementById('collection-filter').value;
+            
+            let filtered = products;
+            
+            if (searchTerm) {
+                filtered = filtered.filter(p => 
+                    p.name.toLowerCase().includes(searchTerm) ||
+                    (p.desc && p.desc.toLowerCase().includes(searchTerm))
+                );
+            }
+            
+            if (collectionFilter) {
+                filtered = filtered.filter(p => p.collection === collectionFilter);
+            }
+            
+            renderProducts(filtered);
+        }
+
+        function filterProducts() {
+            searchProducts();
+        }
+
+        function searchCollections() {
+            const searchTerm = document.getElementById('collection-search').value.toLowerCase();
+            
+            let filtered = collections;
+            
+            if (searchTerm) {
+                filtered = filtered.filter(c => 
+                    c.name.toLowerCase().includes(searchTerm) ||
+                    (c.meaning && c.meaning.toLowerCase().includes(searchTerm))
+                );
+            }
+            
+            const tbody = document.getElementById('collections-table');
+            tbody.innerHTML = filtered.map(collection => {
+                const productCount = products.filter(p => p.collection.toLowerCase() === collection.name.toLowerCase()).length;
+                
+                return `
+                    <tr>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <div style="width: 20px; height: 20px; background: ${collection.color}; border-radius: 4px;"></div>
+                                <div>
+                                    <div style="font-weight: 600;">${collection.name}</div>
+                                    <div style="font-size: 0.8rem; color: var(--muted);">${collection.meaning || ''}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>${productCount} products</td>
+                        <td>
+                            <span class="status-badge status-${collection.status}">${collection.status}</span>
+                        </td>
+                        <td>
+                            <div class="table-actions">
+                                <button class="btn btn-sm btn-secondary" onclick="editCollection('${collection.id}')">Edit</button>
+                                <button class="btn btn-sm btn-danger" onclick="deleteCollection('${collection.id}')">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Alert
+        function showAlert(message, type = 'success') {
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+            document.body.appendChild(alert);
+            
+            setTimeout(() => alert.remove(), 3000);
+        }
+
+        // Close modals on outside click
+        window.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('active');
+            }
+        });
+
+        // Initialize
+        renderProducts();
+        updateStats();
+    </script>
+</body>
+</html>

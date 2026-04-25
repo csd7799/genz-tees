@@ -1,0 +1,12 @@
+◇ injected env (11) from .env // tip: ⌁ auth for agents [www.vestauth.com]
+⚠️ Sharp/Jimp not available - some features will be disabled
+💡 To enable full functionality, run: npm install sharp jimp
+
+🚀 Server started on http://localhost:3000
+🛍️ Store:  http://localhost:3000
+📊 Admin:  http://localhost:3000/admin
+📦 Inventory:  http://localhost:3000/admin/inventory
+
+💡 Email notifications will work once you configure EMAIL_CONFIG in server.js
+
+Serving admin-inventory.html

@@ -29,27 +29,45 @@ document.addEventListener('DOMContentLoaded', () => {
         'nakshatra': { name: 'NAKSHATRA', color: '#00D4FF', meaning: 'Star / Constellation' },
         'kaal': { name: 'KAAL', color: '#FF3864', meaning: 'Time / Death' },
         'pralay': { name: 'PRALAY', color: '#FF4500', meaning: 'Apocalypse' },
-        'aatma': { name: 'AATMA', color: '#E8E8F0', meaning: 'Soul' }
+        'aatma': { name: 'AATMA', color: '#E8E8F0', meaning: 'Soul' },
+        'maya': { name: 'MAYA', color: '#9D4EDD', meaning: 'Illusion' },
+        'srishti': { name: 'SRISHTI', color: '#FF006E', meaning: 'Creation' },
+        'nirvana': { name: 'NIRVANA', color: '#00F5FF', meaning: 'Liberation' }
     };
 
     // Using placeholder images (SVG data URIs) or generic names
     const products = [
         // SHUNYA DROP (Minimalist Void)
-        { name: "VOID CIRCLE — BLACK", price: "₹1299", img: "shunya_void_circle.png", badge: "LIMITED", filter: "brightness(0)", collection: "shunya", desc: "Pure minimalism. A single void circle on black. Embroidered chest logo. Drop-shoulder oversized fit." },
-        { name: "SHUNYA SANSKRIT — CHARCOAL", price: "₹1399", img: "shunya_sanskrit.png", badge: "NEW", filter: "brightness(0.2)", collection: "shunya", desc: "The Sanskrit character 'शून्य' in oversized distressed print. Premium heavy cotton." },
-        { name: "ORBITAL RINGS — BLACK", price: "₹1499", img: "shunya_orbit.png", badge: "", filter: "brightness(0)", collection: "shunya", desc: "Abstract orbit rings with VYOM VOID wordmark. Wraparound print. Heavy 280 GSM." },
+        { name: "VOID CIRCLE — BLACK", price: "₹1299", img: "mockup_front.png", badge: "LIMITED", filter: "brightness(0)", collection: "shunya", desc: "Pure minimalism. A single void circle on black. Embroidered chest logo. Drop-shoulder oversized fit." },
+        { name: "SHUNYA SANSKRIT — CHARCOAL", price: "₹1399", img: "print_hindi_gothic_1776522416869.png", badge: "NEW", filter: "brightness(0.2)", collection: "shunya", desc: "The Sanskrit character 'शून्य' in oversized distressed print. Premium heavy cotton." },
+        { name: "ORBITAL RINGS — BLACK", price: "₹1499", img: "mockup_side.png", badge: "", filter: "brightness(0)", collection: "shunya", desc: "Abstract orbit rings with VYOM VOID wordmark. Wraparound print. Heavy 280 GSM." },
         
         // NAKSHATRA DROP (Star Maps)
-        { name: "STAR MAP — DEEP NAVY", price: "₹1599", img: "nakshatra_star.png", badge: "HOT", filter: "sepia(0.5) hue-rotate(190deg)", collection: "nakshatra", desc: "Indian constellation mythology rendered in technical diagram style. Star map aesthetic." },
-        { name: "CONSTELLATION — BLACK", price: "₹1299", img: "nakshatra_const.png", badge: "", filter: "brightness(0)", collection: "nakshatra", desc: "Dark star maps reimagined. Minimalist constellation print on chest." },
+        { name: "STAR MAP — DEEP NAVY", price: "₹1599", img: "thermal_map_tee_1776520874913.png", badge: "HOT", filter: "sepia(0.5) hue-rotate(190deg)", collection: "nakshatra", desc: "Indian constellation mythology rendered in technical diagram style. Star map aesthetic." },
+        { name: "CONSTELLATION — BLACK", price: "₹1299", img: "mockup_front.png", badge: "", filter: "brightness(0)", collection: "nakshatra", desc: "Dark star maps reimagined. Minimalist constellation print on chest." },
         
         // KAAL DROP (Time / Glitch)
-        { name: "GLITCH TIME — OFF BLACK", price: "₹1399", img: "kaal_glitch.png", badge: "TRENDING", filter: "hue-rotate(270deg) contrast(1.2)", collection: "kaal", desc: "Distorted time. Melting clocks, broken grids. Y2K-dark glitch aesthetic." },
-        { name: "DISTORTED GRID — GREY", price: "₹1199", img: "kaal_grid.png", badge: "", filter: "grayscale(1)", collection: "kaal", desc: "Broken grid lines and corrupted text. The concept: time is an illusion." },
+        { name: "GLITCH TIME — OFF BLACK", price: "₹1399", img: "gothic_acid_tee_1776520860162.png", badge: "TRENDING", filter: "hue-rotate(270deg) contrast(1.2)", collection: "kaal", desc: "Distorted time. Melting clocks, broken grids. Y2K-dark glitch aesthetic." },
+        { name: "DISTORTED GRID — GREY", price: "₹1199", img: "retro_futuristic_tee_1776520668860.png", badge: "", filter: "grayscale(1)", collection: "kaal", desc: "Broken grid lines and corrupted text. The concept: time is an illusion." },
 
         // PRA LAY DROP (Apocalypse)
-        { name: "COSMIC SUPERNOVA — BLACK", price: "₹1799", img: "pralay_supernova.png", badge: "HEAVY", filter: "hue-rotate(320deg)", collection: "pralay", desc: "Bold graphic heavy. Supernova explosion art. Double-sided print." },
-        { name: "COLLAPSING STAR — CHARCOAL", price: "₹1599", img: "pralay_collapse.png", badge: "", filter: "sepia(1) hue-rotate(300deg)", collection: "pralay", desc: "Inspired by Hindu cosmological cycles of creation and destruction." }
+        { name: "COSMIC SUPERNOVA — BLACK", price: "₹1799", img: "print_neon_rickshaw_1776522381991.png", badge: "HEAVY", filter: "hue-rotate(320deg)", collection: "pralay", desc: "Bold graphic heavy. Supernova explosion art. Double-sided print." },
+        { name: "COLLAPSING STAR — CHARCOAL", price: "₹1599", img: "y2k_smiley_tee_1776520772048.png", badge: "", filter: "sepia(1) hue-rotate(300deg)", collection: "pralay", desc: "Inspired by Hindu cosmological cycles of creation and destruction." },
+
+        // MAYA DROP (Illusion)
+        { name: "OPTICAL ILLUSION — BLACK", price: "₹1499", img: "gothic_acid_tee_1776520860162.png", badge: "NEW", filter: "hue-rotate(270deg) contrast(1.3)", collection: "maya", desc: "Mind-bending geometric patterns that play with perception. Hypnotic design that changes when viewed from different angles." },
+        { name: "QUANTUM DREAM — DEEP NAVY", price: "₹1599", img: "thermal_map_tee_1776520874913.png", badge: "TRENDING", filter: "sepia(0.3) hue-rotate(200deg)", collection: "maya", desc: "Quantum mechanics visualization. Subatomic particle patterns in dreamlike arrangement." },
+        { name: "MIRROR REALITY — GREY", price: "₹1399", img: "retro_futuristic_tee_1776520668860.png", badge: "", filter: "grayscale(0.8)", collection: "maya", desc: "Reflective patterns that mirror and distort. The concept of perceived vs actual reality." },
+
+        // SRISHTI DROP (Creation)
+        { name: "BIG BANG — BLACK", price: "₹1799", img: "print_neon_rickshaw_1776522381991.png", badge: "LIMITED", filter: "hue-rotate(340deg) brightness(0.8)", collection: "srishti", desc: "Explosive creation pattern. The moment everything began. Radiating energy from center point." },
+        { name: "STELLAR NURSERY — DEEP NAVY", price: "₹1699", img: "thermal_map_tee_1776520874913.png", badge: "NEW", filter: "sepia(0.2) hue-rotate(220deg)", collection: "srishti", desc: "Where stars are born. Nebula clouds and stellar formation patterns." },
+        { name: "CREATION SEED — CHARCOAL", price: "₹1499", img: "print_hindi_gothic_1776522416869.png", badge: "", filter: "brightness(0.3)", collection: "srishti", desc: "The seed of creation. Sacred geometry patterns representing the origin of all things." },
+
+        // NIRVANA DROP (Liberation)
+        { name: "ENLIGHTENMENT CIRCLE — WHITE", price: "₹1599", img: "mockup_front.png", badge: "NEW", filter: "brightness(1.2) contrast(0.9)", collection: "nirvana", desc: "The circle of enlightenment. Perfect harmony and balance in minimalist form." },
+        { name: "MEDITATION WAVE — LIGHT GREY", price: "₹1399", img: "mockup_back.png", badge: "TRENDING", filter: "brightness(1.5) grayscale(0.3)", collection: "nirvana", desc: "Brainwave patterns during deep meditation. The flow of consciousness." },
+        { name: "TRANSCENDENCE — BLACK", price: "₹1799", img: "y2k_smiley_tee_1776520772048.png", badge: "LIMITED", filter: "sepia(0.8) hue-rotate(280deg)", collection: "nirvana", desc: "Breaking through the veil. Ascension patterns representing spiritual liberation." }
     ];
 
     const basePath = "images/";
@@ -358,7 +376,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('step-2').classList.add('active');
 
         try {
-            const response = await fetch('http://localhost:3000/create-order', {
+            const response = await fetch('/create-order', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ amount: totalAmount, customer, items: cartItems })
@@ -370,7 +388,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Open Razorpay
             const options = {
-                "key": "rzp_test_SfJRVUJVV0bXjj",
+                "key": window.RAZORPAY_KEY_ID || "rzp_test_SfJRVUJVV0bXjj",
                 "amount": order.amount,
                 "currency": "INR",
                 "name": "VYOM VOID",
@@ -378,7 +396,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 "order_id": order.id,
                 "handler": async function (response) {
                     // Confirm payment on backend
-                    await fetch('http://localhost:3000/confirm-payment', {
+                    await fetch('/confirm-payment', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({

@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VYOM VOID — Inventory Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #050505;
+            --card: #0A0A0F;
+            --border: rgba(255, 255, 255, 0.04);
+            --accent: #7B2FBE;
+            --cyan: #00D4FF;
+            --text: #E8E8F0;
+            --muted: #666;
+            --success: #27AE60;
+            --warning: #F39C12;
+            --error: #E74C3C;
+            --danger: #C0392B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Outfit', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 260px;
+            background: #000;
+            border-right: 1px solid var(--border);
+            padding: 2rem;
+            z-index: 100;
+            overflow-y: auto;
+        }
+
+        .logo {
+            font-family: 'Syne';
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 3rem;
+            letter-spacing: -1px;
+        }
+
+        .nav-section {
+            margin-bottom: 2rem;
+        }
+
+        .nav-section-title {
+            font-size: 0.7rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .nav-link {
+            display: block;
+            color: var(--muted);
+            text-decoration: none;
+            font-family: 'Syne';
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 0.8rem;
+            transition: 0.3s;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--accent);
+            background: rgba(123, 47, 190, 0.1);
+        }
+
+        /* Main Content */
+        .main {
+            margin-left: 260px;
+            padding: 2rem;
+            max-width: 1400px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        h1 {
+            font-family: 'Syne';
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -2px;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            color: var(--muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 0.5rem;
+        }
+
+        /* Stats Dashboard */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: 'Syne';
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stat-change {
+            font-size: 0.7rem;
+            margin-top: 0.5rem;
+        }
+
+        .stat-change.positive {
+            color: var(--success);
+        }
+
+        .stat-change.negative {
+            color: var(--error);
+        }
+
+        /* Action Buttons */
+        .action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 0.5rem;
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .search-input {
+            flex: 1;
+            background: var(--card);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.8rem 1rem;
+            border-radius: 6px;
+            font-family: 'Outfit';
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent);
+        }
+
+        .btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            font-family: 'Syne';
+            font-weight: 600;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #6B2696;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-danger {
+            background: var(--error);
+        }
+
+        .btn-danger:hover {
+            background: var(--danger);
+        }
+
+        .btn-success {
+            background: var(--success);
+        }
+
+        .btn-success:hover {
+            background: #229954;
+        }
+
+        /* Tables */
+        .table-container {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            padding: 1rem;
+            font-family: 'Syne';
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--muted);
+            border-bottom: 1px solid var(--border);
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+
+        tr:hover {
+            background: rgba(123, 47, 190, 0.05);
+        }
+
+        /* Product Image */
+        .product-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 6px;
+            object-fit: cover;
+            background: #000;
+            border: 1px solid var(--border);
+        }
+
+        /* Status Badges */
+        .status-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .status-active {
+            background: rgba(39, 174, 96, 0.2);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .status-inactive {
+            background: rgba(231, 76, 60, 0.2);
+            color: var(--error);
+            border: 1px solid var(--error);
+        }
+
+        .status-draft {
+            background: rgba(243, 156, 18, 0.2);
+            color: var(--warning);
+            border: 1px solid var(--warning);
+        }
+
+        /* Inventory Status */
+        .inventory-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .inventory-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .inventory-good {
+            background: var(--success);
+        }
+
+        .inventory-low {
+            background: var(--warning);
+        }
+
+        .inventory-out {
+            background: var(--error);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(4px);
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .modal-title {
+            font-family: 'Syne';
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+
+        .close-modal:hover {
+            color: var(--error);
+            background: rgba(231, 76, 60, 0.1);
+        }
+
+        /* Forms */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            display: block;
+            color: var(--text);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            background: #000;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.8rem;
+            color: var(--text);
+            font-family: 'Outfit';
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--accent);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* Inventory Input Grid */
+        .inventory-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.5rem;
+        }
+
+        .inventory-input {
+            text-align: center;
+        }
+
+        .inventory-input label {
+            font-size: 0.7rem;
+            margin-bottom: 0.3rem;
+        }
+
+        /* Filter Tabs */
+        .filter-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+            overflow-x: auto;
+        }
+
+        .filter-tab {
+            background: none;
+            border: none;
+            color: var(--muted);
+            padding: 1rem 1.5rem;
+            font-family: 'Syne';
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: 0.3s;
+            white-space: nowrap;
+        }
+
+        .filter-tab:hover,
+        .filter-tab.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: var(--muted);
+        }
+
+        .spinner {
+            border: 2px solid var(--border);
+            border-top: 2px solid var(--accent);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .inventory-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .action-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-bar {
+                max-width: none;
+            }
+        }
+
+        /* Alert Messages */
+        .alert {
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            border: 1px solid;
+        }
+
+        .alert-success {
+            background: rgba(39, 174, 96, 0.1);
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .alert-error {
+            background: rgba(231, 76, 60, 0.1);
+            border-color: var(--error);
+            color: var(--error);
+        }
+
+        .alert-warning {
+            background: rgba(243, 156, 18, 0.1);
+            border-color: var(--warning);
+            color: var(--warning);
+        }
+
+        /* Action Buttons in Table */
+        .table-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-sm {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.7rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar">
+        <div class="logo">VYOM VOID</div>
+        
+        <div class="nav-section">
+            <div class="nav-section-title">Inventory</div>
+            <a class="nav-link active" onclick="showSection('products')">Products</a>
+            <a class="nav-link" onclick="showSection('collections')">Collections</a>
+            <a class="nav-link" onclick="showSection('inventory-status')">Inventory Status</a>
+        </div>
+        
+        <div class="nav-section">
+            <div class="nav-section-title">Analytics</div>
+            <a class="nav-link" onclick="showSection('reports')">Reports</a>
+            <a class="nav-link" onclick="showSection('low-stock')">Low Stock Alert</a>
+        </div>
+        
+        <div class="nav-section">
+            <div class="nav-section-title">System</div>
+            <a class="nav-link" href="admin.html">AI Factory</a>
+            <a class="nav-link" href="/">Exit to Store</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Header -->
+        <header>
+            <div>
+                <h1 id="page-title">Inventory Management</h1>
+                <div class="subtitle" id="page-subtitle">Manage your products and collections</div>
+            </div>
+            <div id="header-actions"></div>
+        </header>
+
+        <!-- Stats Dashboard -->
+        <div class="stats-grid" id="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value" id="total-products">0</div>
+                <div class="stat-label">Total Products</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="total-collections">0</div>
+                <div class="stat-label">Collections</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="total-inventory">0</div>
+                <div class="stat-label">Total Inventory</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="low-stock-count">0</div>
+                <div class="stat-label">Low Stock Items</div>
+            </div>
+        </div>
+
+        <!-- Products Section -->
+        <section id="products-section" class="content-section">
+            <div class="action-bar">
+                <div class="search-bar">
+                    <input type="text" class="search-input" id="product-search" placeholder="Search products...">
+                    <button class="btn btn-secondary" onclick="searchProducts()">Search</button>
+                </div>
+                <div>
+                    <select id="collection-filter" class="btn btn-secondary" onchange="filterProducts()">
+                        <option value="">All Collections</option>
+                    </select>
+                    <button class="btn" onclick="openProductModal()">Add Product</button>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Product</th>
+                            <th>Collection</th>
+                            <th>Price</th>
+                            <th>Inventory</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="products-table">
+                        <tr>
+                            <td colspan="7" class="loading">
+                                <div class="spinner"></div>
+                                Loading products...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Collections Section -->
+        <section id="collections-section" class="content-section" style="display: none;">
+            <div class="action-bar">
+                <div class="search-bar">
+                    <input type="text" class="search-input" id="collection-search" placeholder="Search collections...">
+                    <button class="btn btn-secondary" onclick="searchCollections()">Search</button>
+                </div>
+                <button class="btn" onclick="openCollectionModal()">Add Collection</button>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Collection</th>
+                            <th>Products</th>
+                            <th>Status</th>
+                            <th>Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="collections-table">
+                        <tr>
+                            <td colspan="5" class="loading">
+                                <div class="spinner"></div>
+                                Loading collections...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Inventory Status Section -->
+        <section id="inventory-status-section" class="content-section" style="display: none;">
+            <div class="filter-tabs">
+                <button class="filter-tab active" onclick="showInventoryTab('all')">All Items</button>
+                <button class="filter-tab" onclick="showInventoryTab('low-stock')">Low Stock</button>
+                <button class="filter-tab" onclick="showInventoryTab('out-of-stock')">Out of Stock</button>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Size</th>
+                            <th>Current Stock</th>
+                            <th>Status</th>
+                            <th>Last Updated</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inventory-table">
+                        <tr>
+                            <td colspan="6" class="loading">
+                                <div class="spinner"></div>
+                                Loading inventory status...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- Product Modal -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="product-modal-title">Add Product</h2>
+                <button class="close-modal" onclick="closeProductModal()">&times;</button>
+            </div>
+            
+            <form id="product-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="product-name">Product Name *</label>
+                        <input type="text" id="product-name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="product-price">Price *</label>
+                        <input type="text" id="product-price" placeholder="₹1299" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="product-collection">Collection *</label>
+                        <select id="product-collection" required>
+                            <option value="">Select Collection</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="product-status">Status</label>
+                        <select id="product-status">
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                            <option value="draft">Draft</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Product Images</label>
+                        <input type="file" id="product-image-upload" accept="image/*" multiple style="padding:6px;">
+                        <div id="image-preview" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;"></div>
+                        <input type="hidden" id="product-image" />
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="product-badge">Badge</label>
+                        <input type="text" id="product-badge" placeholder="NEW, LIMITED, TRENDING">
+                    </div>
+                </div>
+                
+                <div class="form-group full-width">
+                    <label for="product-description">Description</label>
+                    <textarea id="product-description" rows="3"></textarea>
+                </div>
+                
+                <div class="form-group full-width">
+                    <label>Inventory (Stock per size)</label>
+                    <div class="inventory-grid">
+                        <div class="inventory-input">
+                            <label>S</label>
+                            <input type="number" id="inv-S" min="0" value="0">
+                        </div>
+                        <div class="inventory-input">
+                            <label>M</label>
+                            <input type="number" id="inv-M" min="0" value="0">
+                        </div>
+                        <div class="inventory-input">
+                            <label>L</label>
+                            <input type="number" id="inv-L" min="0" value="0">
+                        </div>
+                        <div class="inventory-input">
+                            <label>XL</label>
+                            <input type="number" id="inv-XL" min="0" value="0">
+                        </div>
+                        <div class="inventory-input">
+                            <label>XXL</label>
+                            <input type="number" id="inv-XXL" min="0" value="0">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group full-width">
+                    <button type="submit" class="btn">Save Product</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeProductModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Collection Modal -->
+    <div id="collection-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="collection-modal-title">Add Collection</h2>
+                <button class="close-modal" onclick="closeCollectionModal()">&times;</button>
+            </div>
+            
+            <form id="collection-form">
+                <div class="form-group">
+                    <label for="collection-name">Collection Name *</label>
+                    <input type="text" id="collection-name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="collection-meaning">Meaning/Concept</label>
+                    <input type="text" id="collection-meaning" placeholder="e.g., The Void, Creation, Liberation">
+                </div>
+                
+                <div class="form-group">
+                    <label for="collection-color">Theme Color</label>
+                    <input type="color" id="collection-color" value="#7B2FBE">
+                </div>
+                
+                <div class="form-group">
+                    <label for="collection-status">Status</label>
+                    <select id="collection-status">
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="btn">Save Collection</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeCollectionModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let currentSection = 'products';
+        let products = [];
+        let collections = [];
+        let inventoryStatus = {};
+        let currentEditingProduct = null;
+        let currentEditingCollection = null;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadDashboardData();
+            loadProducts();
+            loadCollections();
+            loadInventoryStatus();
+        });
+
+        // Section navigation
+        function showSection(section) {
+            currentSection = section;
+            
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(s => s.style.display = 'none');
+            
+            // Show selected section
+            document.getElementById(section + '-section').style.display = 'block';
+            
+            // Update nav
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Update header
+            updateHeader(section);
+            
+            // Load data for section
+            switch(section) {
+                case 'products':
+                    loadProducts();
+                    break;
+                case 'collections':
+                    loadCollections();
+                    break;
+                case 'inventory-status':
+                    loadInventoryStatus();
+                    break;
+            }
+        }
+
+        function updateHeader(section) {
+            const title = document.getElementById('page-title');
+            const subtitle = document.getElementById('page-subtitle');
+            const actions = document.getElementById('header-actions');
+            
+            switch(section) {
+                case 'products':
+                    title.textContent = 'Products';
+                    subtitle.textContent = 'Manage your product catalog';
+                    actions.innerHTML = '';
+                    break;
+                case 'collections':
+                    title.textContent = 'Collections';
+                    subtitle.textContent = 'Organize your product collections';
+                    actions.innerHTML = '';
+                    break;
+                case 'inventory-status':
+                    title.textContent = 'Inventory Status';
+                    subtitle.textContent = 'Monitor stock levels and alerts';
+                    actions.innerHTML = '<button class="btn btn-success" onclick="exportInventoryReport()">Export Report</button>';
+                    break;
+            }
+        }
+
+        // Load dashboard data
+        async function loadDashboardData() {
+            try {
+                const response = await fetch('/api/inventory/status');
+                const result = await response.json();
+                
+                if (result.success) {
+                    const data = result.data;
+                    document.getElementById('total-products').textContent = data.totalProducts;
+                    document.getElementById('total-collections').textContent = data.totalCollections;
+                    document.getElementById('total-inventory').textContent = data.totalInventory.toLocaleString();
+                    document.getElementById('low-stock-count').textContent = data.lowStock.length;
+                }
+            } catch (error) {
+                console.error('Failed to load dashboard data:', error);
+            }
+        }
+
+        // Load products
+        async function loadProducts() {
+            const tbody = document.getElementById('products-table');
+            tbody.innerHTML = '<tr><td colspan="7" class="loading"><div class="spinner"></div>Loading products...</td></tr>';
+            
+            try {
+                const response = await fetch('/api/inventory/products');
+                const result = await response.json();
+                
+                if (result.success) {
+                    products = result.data;
+                    renderProducts(products);
+                    updateCollectionFilter();
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="7" class="alert alert-error">Failed to load products</td></tr>';
+                }
+            } catch (error) {
+                tbody.innerHTML = '<tr><td colspan="7" class="alert alert-error">Error loading products</td></tr>';
+            }
+        }
+
+        function renderProducts(productsToRender) {
+            const tbody = document.getElementById('products-table');
+            
+            if (productsToRender.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 2rem;">No products found</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = productsToRender.map(product => {
+                const totalInventory = Object.values(product.inventory || {}).reduce((sum, qty) => sum + qty, 0);
+                const inventoryStatus = getInventoryStatus(product.inventory);
+                
+                return `
+                    <tr>
+                        <td>
+                            <img src="images/${product.img}" alt="${product.name}" class="product-image">
+                        </td>
+                        <td>
+                            <div style="font-weight: 600;">${product.name}</div>
+                            <div style="font-size: 0.8rem; color: var(--muted);">${product.desc ? product.desc.substring(0, 50) + '...' : ''}</div>
+                        </td>
+                        <td>
+                            <span class="status-badge" style="background: ${getCollectionColor(product.collection)}20; color: ${getCollectionColor(product.collection)}; border-color: ${getCollectionColor(product.collection)};">
+                                ${product.collection.toUpperCase()}
+                            </span>
+                        </td>
+                        <td style="font-weight: 600;">${product.price}</td>
+                        <td>
+                            <div class="inventory-status">
+                                <div class="inventory-indicator ${inventoryStatus.class}"></div>
+                                <span>${totalInventory} units</span>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="status-badge status-${product.status}">${product.status}</span>
+                        </td>
+                        <td>
+                            <div class="table-actions">
+                                <button class="btn btn-sm btn-secondary" onclick="editProduct('${product.id}')">Edit</button>
+                                <button class="btn btn-sm btn-danger" onclick="deleteProduct('${product.id}')">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function getInventoryStatus(inventory) {
+            if (!inventory) return { class: 'inventory-good', text: 'Good' };
+            
+            const quantities = Object.values(inventory);
+            const hasOutOfStock = quantities.some(qty => qty === 0);
+            const hasLowStock = quantities.some(qty => qty > 0 && qty <= 20);
+            
+            if (hasOutOfStock) return { class: 'inventory-out', text: 'Out of Stock' };
+            if (hasLowStock) return { class: 'inventory-low', text: 'Low Stock' };
+            return { class: 'inventory-good', text: 'Good' };
+        }
+
+        function getCollectionColor(collectionName) {
+            const collection = collections.find(c => c.name.toLowerCase() === collectionName.toLowerCase());
+            return collection ? collection.color : '#7B2FBE';
+        }
+
+        // Product CRUD operations
+        function openProductModal(product = null) {
+            currentEditingProduct = product;
+            const modal = document.getElementById('product-modal');
+            const title = document.getElementById('product-modal-title');
+            const form = document.getElementById('product-form');
+            
+            title.textContent = product ? 'Edit Product' : 'Add Product';
+            
+            if (product) {
+                // Populate form with product data
+                document.getElementById('product-name').value = product.name;
+                document.getElementById('product-price').value = product.price;
+                document.getElementById('product-collection').value = product.collection;
+                document.getElementById('product-status').value = product.status;
+                document.getElementById('product-image').value = product.img || '';
+                document.getElementById('product-image-upload').value = '';
+                const preview = document.getElementById('image-preview');
+                preview.innerHTML = product.img
+                    ? `<img src="/images/${product.img}" style="width:80px;height:80px;object-fit:cover;border-radius:6px;border:1px solid #333;" title="Current image">`
+                    : '';
+                document.getElementById('product-badge').value = product.badge || '';
+                document.getElementById('product-description').value = product.desc || '';
+                
+                // Set inventory values
+                const inventory = product.inventory || { S: 0, M: 0, L: 0, XL: 0, XXL: 0 };
+                ['S', 'M', 'L', 'XL', 'XXL'].forEach(size => {
+                    document.getElementById(`inv-${size}`).value = inventory[size] || 0;
+                });
+            } else {
+                form.reset();
+                document.getElementById('image-preview').innerHTML = '';
+                // Set default inventory values
+                ['S', 'M', 'L', 'XL', 'XXL'].forEach(size => {
+                    document.getElementById(`inv-${size}`).value = 50;
+                });
+            }
+            
+            modal.classList.add('active');
+        }
+
+        function closeProductModal() {
+            document.getElementById('product-modal').classList.remove('active');
+            currentEditingProduct = null;
+        }
+
+        function editProduct(productId) {
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                openProductModal(product);
+            }
+        }
+
+        async function deleteProduct(productId) {
+            if (!confirm('Are you sure you want to delete this product?')) return;
+            
+            try {
+                const response = await fetch(`/api/inventory/products/${productId}`, {
+                    method: 'DELETE'
+                });
+                
+                const result = await response.json();
+                if (result.success) {
+                    showAlert('Product deleted successfully', 'success');
+                    loadProducts();
+                    loadDashboardData();
+                } else {
+                    showAlert('Failed to delete product: ' + result.error, 'error');
+                }
+            } catch (error) {
+                showAlert('Error deleting product', 'error');
+            }
+        }
+
+        // Live preview when files are picked
+        document.getElementById('product-image-upload').addEventListener('change', function() {
+            const preview = document.getElementById('image-preview');
+            preview.innerHTML = '';
+            Array.from(this.files).forEach(file => {
+                const url = URL.createObjectURL(file);
+                preview.innerHTML += `<img src="${url}" style="width:80px;height:80px;object-fit:cover;border-radius:6px;border:1px solid #333;">`;
+            });
+        });
+
+        // Product form submission
+        document.getElementById('product-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Upload images first if any files selected
+            let imgValue = document.getElementById('product-image').value || 'mockup_front.png';
+            const fileInput = document.getElementById('product-image-upload');
+            if (fileInput.files.length > 0) {
+                const fd = new FormData();
+                Array.from(fileInput.files).forEach(f => fd.append('images', f));
+                try {
+                    const upRes = await fetch('/api/upload-images', { method: 'POST', body: fd });
+                    const upData = await upRes.json();
+                    if (upData.success) imgValue = upData.urls[0]; // use first as primary
+                } catch { showAlert('Image upload failed', 'error'); return; }
+            }
+
+            const formData = {
+                name: document.getElementById('product-name').value,
+                price: document.getElementById('product-price').value,
+                collection: document.getElementById('product-collection').value,
+                status: document.getElementById('product-status').value,
+                img: imgValue.replace('/images/', ''),
+                badge: document.getElementById('product-badge').value,
+                desc: document.getElementById('product-description').value,
+                inventory: {
+                    S: parseInt(document.getElementById('inv-S').value) || 0,
+                    M: parseInt(document.getElementById('inv-M').value) || 0,
+                    L: parseInt(document.getElementById('inv-L').value) || 0,
+                    XL: parseInt(document.getElementById('inv-XL').value) || 0,
+                    XXL: parseInt(document.getElementById('inv-XXL').value) || 0
+                }
+            };
+
+            try {
+                const url = currentEditingProduct ?
+                    `/api/inventory/products/${currentEditingProduct.id}` :
+                    '/api/inventory/products';
+                const method = currentEditingProduct ? 'PUT' : 'POST';
+
+                const response = await fetch(url, {
+                    method: method,
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    showAlert(`Product ${currentEditingProduct ? 'updated' : 'created'} successfully`, 'success');
+                    closeProductModal();
+                    loadProducts();
+                    loadDashboardData();
+                } else {
+                    showAlert(`Failed to ${currentEditingProduct ? 'update' : 'create'} product: ` + result.error, 'error');
+                }
+            } catch (error) {
+                showAlert(`Error ${currentEditingProduct ? 'updating' : 'creating'} product`, 'error');
+            }
+        });
+
+        // Collection operations
+        async function loadCollections() {
+            const tbody = document.getElementById('collections-table');
+            tbody.innerHTML = '<tr><td colspan="5" class="loading"><div class="spinner"></div>Loading collections...</td></tr>';
+            
+            try {
+                const response = await fetch('/api/inventory/collections');
+                const result = await response.json();
+                
+                if (result.success) {
+                    collections = result.data;
+                    renderCollections(collections);
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="5" class="alert alert-error">Failed to load collections</td></tr>';
+                }
+            } catch (error) {
+                tbody.innerHTML = '<tr><td colspan="5" class="alert alert-error">Error loading collections</td></tr>';
+            }
+        }
+
+        function renderCollections(collectionsToRender) {
+            const tbody = document.getElementById('collections-table');
+            
+            if (collectionsToRender.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 2rem;">No collections found</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = collectionsToRender.map(collection => `
+                <tr>
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <div style="width: 20px; height: 20px; background: ${collection.color}; border-radius: 4px;"></div>
+                            <div>
+                                <div style="font-weight: 600;">${collection.name}</div>
+                                <div style="font-size: 0.8rem; color: var(--muted);">${collection.meaning || ''}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>${collection.productCount || 0} products</td>
+                    <td>
+                        <span class="status-badge status-${collection.status}">${collection.status}</span>
+                    </td>
+                    <td>${new Date(collection.createdAt).toLocaleDateString()}</td>
+                    <td>
+                        <div class="table-actions">
+                            <button class="btn btn-sm btn-secondary" onclick="editCollection('${collection.id}')">Edit</button>
+                            <button class="btn btn-sm btn-danger" onclick="deleteCollection('${collection.id}')">Delete</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function updateCollectionFilter() {
+            const select = document.getElementById('collection-filter');
+            select.innerHTML = '<option value="">All Collections</option>' +
+                collections.map(c => `<option value="${c.name.toLowerCase()}">${c.name}</option>`).join('');
+        }
+
+        function openCollectionModal(collection = null) {
+            currentEditingCollection = collection;
+            const modal = document.getElementById('collection-modal');
+            const title = document.getElementById('collection-modal-title');
+            const form = document.getElementById('collection-form');
+            
+            title.textContent = collection ? 'Edit Collection' : 'Add Collection';
+            
+            if (collection) {
+                document.getElementById('collection-name').value = collection.name;
+                document.getElementById('collection-meaning').value = collection.meaning || '';
+                document.getElementById('collection-color').value = collection.color || '#7B2FBE';
+                document.getElementById('collection-status').value = collection.status;
+            } else {
+                form.reset();
+            }
+            
+            modal.classList.add('active');
+        }
+
+        function closeCollectionModal() {
+            document.getElementById('collection-modal').classList.remove('active');
+            currentEditingCollection = null;
+        }
+
+        function editCollection(collectionId) {
+            const collection = collections.find(c => c.id === collectionId);
+            if (collection) {
+                openCollectionModal(collection);
+            }
+        }
+
+        async function deleteCollection(collectionId) {
+            const collection = collections.find(c => c.id === collectionId);
+            if (!collection) return;
+            
+            if (!confirm(`Are you sure you want to delete the "${collection.name}" collection? This will only work if there are no products in this collection.`)) return;
+            
+            try {
+                const response = await fetch(`/api/inventory/collections/${collectionId}`, {
+                    method: 'DELETE'
+                });
+                
+                const result = await response.json();
+                if (result.success) {
+                    showAlert('Collection deleted successfully', 'success');
+                    loadCollections();
+                    loadDashboardData();
+                } else {
+                    showAlert('Failed to delete collection: ' + result.error, 'error');
+                }
+            } catch (error) {
+                showAlert('Error deleting collection', 'error');
+            }
+        }
+
+        // Collection form submission
+        document.getElementById('collection-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('collection-name').value,
+                meaning: document.getElementById('collection-meaning').value,
+                color: document.getElementById('collection-color').value,
+                status: document.getElementById('collection-status').value
+            };
+            
+            try {
+                const url = currentEditingCollection ? 
+                    `/api/inventory/collections/${currentEditingCollection.id}` : 
+                    '/api/inventory/collections';
+                const method = currentEditingCollection ? 'PUT' : 'POST';
+                
+                const response = await fetch(url, {
+                    method: method,
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+                
+                const result = await response.json();
+                if (result.success) {
+                    showAlert(`Collection ${currentEditingCollection ? 'updated' : 'created'} successfully`, 'success');
+                    closeCollectionModal();
+                    loadCollections();
+                    loadDashboardData();
+                } else {
+                    showAlert(`Failed to ${currentEditingCollection ? 'update' : 'create'} collection: ` + result.error, 'error');
+                }
+            } catch (error) {
+                showAlert(`Error ${currentEditingCollection ? 'updating' : 'creating'} collection`, 'error');
+            }
+        });
+
+        // Inventory status
+        async function loadInventoryStatus() {
+            const tbody = document.getElementById('inventory-table');
+            tbody.innerHTML = '<tr><td colspan="6" class="loading"><div class="spinner"></div>Loading inventory status...</td></tr>';
+            
+            try {
+                const response = await fetch('/api/inventory/status');
+                const result = await response.json();
+                
+                if (result.success) {
+                    inventoryStatus = result.data;
+                    renderInventoryStatus('all');
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="6" class="alert alert-error">Failed to load inventory status</td></tr>';
+                }
+            } catch (error) {
+                tbody.innerHTML = '<tr><td colspan="6" class="alert alert-error">Error loading inventory status</td></tr>';
+            }
+        }
+
+        function renderInventoryStatus(tab) {
+            const tbody = document.getElementById('inventory-table');
+            let items = [];
+            
+            switch(tab) {
+                case 'low-stock':
+                    items = inventoryStatus.lowStock || [];
+                    break;
+                case 'out-of-stock':
+                    items = inventoryStatus.outOfStock || [];
+                    break;
+                default:
+                    items = [...(inventoryStatus.lowStock || []), ...(inventoryStatus.outOfStock || [])];
+            }
+            
+            if (items.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 2rem;">No items found for ${tab}</td></tr>`;
+                return;
+            }
+            
+            tbody.innerHTML = items.map(item => {
+                const status = item.quantity === 0 ? 'out' : 'low';
+                const statusClass = status === 'out' ? 'inventory-out' : 'inventory-low';
+                const statusText = status === 'out' ? 'Out of Stock' : 'Low Stock';
+                
+                return `
+                    <tr>
+                        <td>${item.productName}</td>
+                        <td>${item.size}</td>
+                        <td>${item.quantity}</td>
+                        <td>
+                            <div class="inventory-status">
+                                <div class="inventory-indicator ${statusClass}"></div>
+                                <span>${statusText}</span>
+                            </div>
+                        </td>
+                        <td>${new Date().toLocaleDateString()}</td>
+                        <td>
+                            <button class="btn btn-sm" onclick="updateInventory('${item.productId}', '${item.size}')">Update Stock</button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function showInventoryTab(tab) {
+            document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            renderInventoryStatus(tab);
+        }
+
+        // Utility functions
+        function showAlert(message, type = 'success') {
+            // Create alert element
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+            alert.style.position = 'fixed';
+            alert.style.top = '20px';
+            alert.style.right = '20px';
+            alert.style.zIndex = '9999';
+            alert.style.minWidth = '300px';
+            
+            document.body.appendChild(alert);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                alert.remove();
+            }, 3000);
+        }
+
+        function searchProducts() {
+            const searchTerm = document.getElementById('product-search').value.toLowerCase();
+            const collectionFilter = document.getElementById('collection-filter').value;
+            
+            let filtered = products;
+            
+            if (searchTerm) {
+                filtered = filtered.filter(p => 
+                    p.name.toLowerCase().includes(searchTerm) ||
+                    p.desc.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            if (collectionFilter) {
+                filtered = filtered.filter(p => p.collection === collectionFilter);
+            }
+            
+            renderProducts(filtered);
+        }
+
+        function filterProducts() {
+            searchProducts();
+        }
+
+        function searchCollections() {
+            const searchTerm = document.getElementById('collection-search').value.toLowerCase();
+            
+            let filtered = collections;
+            
+            if (searchTerm) {
+                filtered = filtered.filter(c => 
+                    c.name.toLowerCase().includes(searchTerm) ||
+                    (c.meaning && c.meaning.toLowerCase().includes(searchTerm))
+                );
+            }
+            
+            renderCollections(filtered);
+        }
+
+        function exportInventoryReport() {
+            // Create CSV content
+            let csv = 'Product Name,Size,Quantity,Status\n';
+            
+            [...(inventoryStatus.lowStock || []), ...(inventoryStatus.outOfStock || [])].forEach(item => {
+                const status = item.quantity === 0 ? 'Out of Stock' : 'Low Stock';
+                csv += `"${item.productName}","${item.size}",${item.quantity},"${status}"\n`;
+            });
+            
+            // Download CSV
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `inventory_report_${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+            
+            showAlert('Inventory report exported successfully', 'success');
+        }
+
+        function updateInventory(productId, size) {
+            // Find product and open edit modal
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                openProductModal(product);
+                // Focus on the specific size input
+                setTimeout(() => {
+                    document.getElementById(`inv-${size}`).focus();
+                }, 100);
+            }
+        }
+
+        // Close modals when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
