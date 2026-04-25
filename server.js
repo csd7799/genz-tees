@@ -154,16 +154,17 @@ async function sendOrderNotification(order) {
 }
 
 // ── Initialize Razorpay ─────────────────────────────────────────────
-const razorpay = new Razorpay({
+const razorpay = process.env.RAZORPAY_KEY_ID ? new Razorpay({
     key_id: process.env.RAZORPAY_KEY_ID,
     key_secret: process.env.RAZORPAY_KEY_SECRET
-});
+}) : null;
 
 // ── API Routes ──────────────────────────────────────────────────────
 
 // Create Razorpay order
 app.post('/create-order', async (req, res) => {
     try {
+        if (!razorpay) return res.status(503).json({ error: 'Razorpay not configured' });
         const { amount, customer, items } = req.body;
 
         const options = {
